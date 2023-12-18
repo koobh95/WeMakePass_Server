@@ -1,4 +1,4 @@
-package com.github.koobh95;
+package com.github.koobh95.controller;
 
 import java.text.DateFormat;
 import java.util.Date;
