@@ -17,6 +17,7 @@ import org.springframework.web.servlet.handler.HandlerMappingIntrospector;
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
+	private String[] permitUris = { };
 
 	/**
 	 * 스프링 시큐리티 필터 체인 설정
@@ -31,13 +32,14 @@ public class SecurityConfig {
 	public SecurityFilterChain securityFilterChain(HttpSecurity http)
 			throws Exception{
 		http.sessionManagement()
-				.sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
-				.httpBasic().disable() // httpBasic 인증 비활성화
-				.csrf().disable() // CsrfFilter disable. API 환경에서 필요없음.
-				.cors(); // CorsFilter enable
+			.sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
+			.httpBasic().disable() // httpBasic 인증 비활성화
+			.csrf().disable() // CsrfFilter disable. API 환경에서 필요없음.
+			.cors(); // CorsFilter enable
 		
 		http.authorizeHttpRequests()
-				.anyRequest().authenticated(); // 모든 리소스에 보안 설정
+			.requestMatchers(permitUris).permitAll() // 보안을 적용하지 않을 URI 설정 
+			.anyRequest().authenticated(); // 모든 리소스에 보안 설정
 		
 		return http.build();
 	}

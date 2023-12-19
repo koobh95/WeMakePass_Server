@@ -43,6 +43,8 @@ public class WebConfig
 	
 	/**
 	 * Filter 등록
+	 * - 문자셋 인코딩 필터
+	 * - SecurityFilterChain에 접근하기 위한 DelegatingFilterProxy 등록
 	 */
 	@Override
 	protected Filter[] getServletFilters() {
