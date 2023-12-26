@@ -13,7 +13,7 @@ import com.github.koobh95.service.JmService;
 import lombok.RequiredArgsConstructor;
 
 /**
- * 종목 정보 조회 API
+ * 자격증 종목을 조회하는 API를 제공.
  * 
  * @author BH-Ku
  * @since 2023-12-19

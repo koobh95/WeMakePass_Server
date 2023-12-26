@@ -7,7 +7,7 @@ import org.springframework.web.filter.DelegatingFilterProxy;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
 /**
- * web.xml을 대체하는 설정 클래스.
+ * xml 기반의 스프링 프로젝트에서 web.xml을 대체하는 설정 클래스.
  * 
  * @author BH-Ku
  * @since 2023-12-19

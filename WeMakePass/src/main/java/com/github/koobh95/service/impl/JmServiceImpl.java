@@ -3,9 +3,10 @@ package com.github.koobh95.service.impl;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.github.koobh95.data.model.dto.JmDTO;
-import com.github.koobh95.data.model.entity.JmEntity;
+import com.github.koobh95.data.model.entity.Jm;
 import com.github.koobh95.data.repository.JmRepository;
 import com.github.koobh95.service.JmService;
 
@@ -29,9 +30,10 @@ public class JmServiceImpl implements JmService {
 	 * @param keyword 부분 검색할 검색어
 	 * @return List<JmDTO> JmEntity를 JmDTO로 변환한 리스트 
 	 */
+	@Transactional(readOnly = true)
 	@Override
 	public List<JmDTO> searchByJmName(String keyword) {
-		List<JmEntity> entityList = jmRepository.findByJmNameContaining(keyword);
-		return JmEntity.toDtoList(entityList);
+		List<Jm> entityList = jmRepository.findByJmNameContaining(keyword);
+		return Jm.toDtoList(entityList);
 	}
 }

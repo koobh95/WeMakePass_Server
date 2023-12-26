@@ -12,6 +12,6 @@ import lombok.Getter;
 @AllArgsConstructor
 @Getter
 public class JmDTO {
-	private String jmCode; // 숫자 4개로 이루어진 종목 식별 코드
-	private String jmName; // 종목 이름
+	private final String jmCode; // 숫자 4개로 이루어진 종목 식별 코드
+	private final String jmName; // 종목 이름
 }
