@@ -6,8 +6,10 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import com.github.koobh95.data.model.dto.response.ErrorResponse;
 import com.github.koobh95.data.model.enums.ErrorCode;
+import com.github.koobh95.exception.AccountValidationException;
 import com.github.koobh95.exception.AesDecryptException;
 import com.github.koobh95.exception.AesEncryptException;
+import com.github.koobh95.exception.JwtReissueException;
 import com.github.koobh95.exception.LoginException;
 
 /**
@@ -31,6 +33,20 @@ public class CustomExceptionHandler {
 	@ExceptionHandler(AesDecryptException.class)
 	protected ResponseEntity<ErrorResponse> aesDecryptionException(
 			AesDecryptException e) {
+		return createErrorResponseEntity(e.getErrorCode());
+	}
+	
+	// Interceptor에서 계정 검증 실패
+	@ExceptionHandler(AccountValidationException.class)
+	protected ResponseEntity<ErrorResponse> accountValidationException(
+			AccountValidationException e) {
+		return createErrorResponseEntity(e.getErrorCode());
+	}
+	
+	// 토큰 재발급 과정에서 문제 발생
+	@ExceptionHandler(JwtReissueException.class)
+	protected ResponseEntity<ErrorResponse> jwtReissueException(
+			JwtReissueException e) {
 		return createErrorResponseEntity(e.getErrorCode());
 	}
 	

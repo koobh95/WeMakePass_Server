@@ -39,7 +39,10 @@ public class SecurityConfig {
 	private final WmpUserDetailsService wmpUserDetailsService;
 	
 	// 보안을 적용하지 않을 URI
-	private String[] permitUris = { "/api/user/login"};
+	private String[] permitUris = { 
+			"/api/user/login", // 로그인
+			"/api/user/info", // 클라이언틍 저장할 사용자 정보
+			"/api/jwt/reissue"}; // 토큰 재발급
 	
 	/**
 	 * - 스프링 시큐리티 필터 체인 설정

@@ -3,9 +3,12 @@ package com.github.koobh95.config;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.ViewResolverRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+
+import com.github.koobh95.interceptor.AccountValidationInterceptor;
 
 /**
  * xml 기반의 스프링 프로젝트에서 servlet-context.xml을 대체하는 설정 클래스
@@ -30,5 +33,13 @@ public class ServletConfig implements WebMvcConfigurer {
 		registry
 			.addResourceHandler("/resources/**")
 			.addResourceLocations("/resources/");
+	}
+	
+	// Interceptor를 등록한다.
+	@Override
+	public void addInterceptors(InterceptorRegistry registry) {
+		registry
+			.addInterceptor(new AccountValidationInterceptor())
+			.addPathPatterns("/**");
 	}
 }

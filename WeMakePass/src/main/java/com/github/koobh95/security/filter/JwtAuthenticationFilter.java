@@ -66,16 +66,16 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 			}
 		} catch(ExpiredJwtException e) {
 			request.setAttribute(JWT_EXCEPTION_ATTRIBUTE_NAME, 
-					ErrorCode.EXPIRED_ACCESS_TOKEN);
+					ErrorCode.EXPIRED_ACCESS_TOKEN.name());
 			log.error(jwtProvider.getErrorMessage(e.getClass()));
 		} catch(SecurityException | MalformedJwtException 
 				| UnsupportedJwtException | IllegalArgumentException e) {
 			request.setAttribute(JWT_EXCEPTION_ATTRIBUTE_NAME,
-					ErrorCode.INVALID_ACCESS_TOKEN);
+					ErrorCode.INVALID_ACCESS_TOKEN.name());
 			log.error(jwtProvider.getErrorMessage(e.getClass()));
 		} catch (Exception e) {
 			request.setAttribute(JWT_EXCEPTION_ATTRIBUTE_NAME,
-					ErrorCode.INVALID_ACCESS_TOKEN);
+					ErrorCode.INVALID_ACCESS_TOKEN.name());
 			log.error(jwtProvider.getErrorMessage(e.getClass()));
 		}
 		

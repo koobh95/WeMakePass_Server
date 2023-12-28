@@ -23,6 +23,9 @@ public enum ErrorCode {
     EXPIRED_ACCESS_TOKEN(HttpStatus.UNAUTHORIZED, "AccessToken이 만료되었습니다."),
     // AccessToken 인증 실패, 서버에서 발급한 토큰이 아니거나 정상적인 접근이 아님.
     INVALID_ACCESS_TOKEN(HttpStatus.UNAUTHORIZED, "비정상적인 접근입니다.(인증 실패)"), 
+    // RefreshToken 만료 혹은 모종의 사유로 재발급 실패.
+    INVALID_REFRESH_TOKEN(HttpStatus.UNAUTHORIZED,
+    		"로그인 정보가 만료되었습니다. 다시 로그인해주세요."),
 	
 	// DB에 아이디가 존재하지 않음.
 	USER_ID_NOT_FOUND(HttpStatus.NOT_FOUND, "존재하지 않는 아이디입니다."),

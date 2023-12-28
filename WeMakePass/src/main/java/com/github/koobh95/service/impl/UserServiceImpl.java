@@ -72,7 +72,7 @@ public class UserServiceImpl implements UserService{
 			throw new LoginException(ErrorCode.UNCERT_USER, "id=" + id);
 		
 		String refreshToken = jwtProvider.createRefreshToken();
-		Optional<UserToken> userToken = userTokenRepository.findByUserId(id);
+		Optional<UserToken> userToken = userTokenRepository.findById(id);
 		
 		// 토큰의 존재 여부를 확인하여 존재할 경우 update, 아닐 경우 insert 
 		userToken.ifPresentOrElse(ut -> 

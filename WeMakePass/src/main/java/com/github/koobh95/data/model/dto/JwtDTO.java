@@ -2,6 +2,7 @@ package com.github.koobh95.data.model.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.ToString;
 
 /**
  * - 사용자가 로그인에 성공했을 때 혹은 토큰 재발급에 성공했을 때 AccessToken, RefreshToken을
@@ -14,6 +15,7 @@ import lombok.Getter;
  */
 @Getter
 @AllArgsConstructor
+@ToString
 public class JwtDTO {
 	private final String accessToken;
 	private final String refreshToken;

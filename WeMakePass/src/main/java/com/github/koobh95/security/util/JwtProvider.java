@@ -113,10 +113,11 @@ public class JwtProvider {
 	 * 
 	 * @param token 검증할 Token
 	 * @return 
+	 * @exception ExpiredJwtException, // 토큰 만료
+	 * 		MalformedJwtException, // 토큰 서명 불일치
+	 *		UnsupportedJwtException // 지원하지 않는 토큰
 	 */
-	public boolean validateToken(String token)
-			throws ExpiredJwtException, MalformedJwtException,
-			UnsupportedJwtException, IllegalArgumentException {
+	public boolean validateToken(String token) throws Exception {
 		Jwts.parserBuilder()
 				.setSigningKey(secretKey)
 				.build()

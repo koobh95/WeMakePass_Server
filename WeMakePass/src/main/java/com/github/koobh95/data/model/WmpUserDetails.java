@@ -20,13 +20,11 @@ import lombok.Builder;
 @Builder
 public class WmpUserDetails implements UserDetails{
 	private String userId; // 사용자 아이디
-	private char cert; // 계정 인증 여부
 	private boolean withdraw; // 계정 탈퇴 여부
 	
 	public static WmpUserDetails of(User user) {
 		return WmpUserDetails.builder()
 				.userId(user.getUserId())
-				.cert(user.getCert())
 				.withdraw(user.getWithdrawDate() == null ? false : true)
 				.build();
 	}
@@ -35,11 +33,6 @@ public class WmpUserDetails implements UserDetails{
 	@Override
 	public String getUsername() {
 		return userId;
-	}
-	
-	// 계정 인증 여부
-	public boolean isCertificated() {
-		return cert == 'Y' ? true : false; 
 	}
 	
 	// 계정 탈퇴 여부
