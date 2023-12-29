@@ -11,6 +11,7 @@ import com.github.koobh95.exception.AesDecryptException;
 import com.github.koobh95.exception.AesEncryptException;
 import com.github.koobh95.exception.JwtReissueException;
 import com.github.koobh95.exception.LoginException;
+import com.github.koobh95.exception.SignUpException;
 
 /**
  *  Controller, Service 단에서 요청을 처리할 수 없을 때 인위적으로 발생시키는 Exception을 
@@ -54,6 +55,13 @@ public class CustomExceptionHandler {
 	@ExceptionHandler(LoginException.class)
 	protected ResponseEntity<ErrorResponse> aesDecryptionException(
 			LoginException e) {
+		return createErrorResponseEntity(e.getErrorCode());
+	}
+	
+	// 회원가입 실패
+	@ExceptionHandler(SignUpException.class)
+	protected ResponseEntity<ErrorResponse> signUpException(
+			SignUpException e) {
 		return createErrorResponseEntity(e.getErrorCode());
 	}
 	

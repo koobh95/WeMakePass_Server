@@ -20,6 +20,6 @@ public class AesDecryptException extends BaseException {
 
 	@Override
 	public String toString() {
-		return "AesDecryptException [toString()=" + super.toString() + "]";
+		return "AesDecryptException [" + super.toString() + "]";
 	}
 }

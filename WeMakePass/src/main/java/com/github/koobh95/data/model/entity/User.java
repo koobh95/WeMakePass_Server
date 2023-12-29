@@ -36,4 +36,30 @@ public class User {
 	@Column(name="withdraw_date")
 	private LocalDateTime withdrawDate; // 계정 탈퇴 시간
 	private char cert; // 이메일 인증 여부
+	
+	/**
+	 *  DB에 추가할 새로운 User 객체를 생성할 때 사용되는 메서드로서 필수 정보들을 제외한 모든 데이터는
+	 * 기본값으로 설정한다. 대부분의 속성들은 default 값이 모두 정해져 있지만 명시적으로 보기 위하여 
+	 * 모든 필드에 값을 모두 초기화하였다.
+	 * 
+	 * @param userId 아이디
+	 * @param password 단방향 암호화된 비밀번호
+	 * @param nickname 닉네임
+	 * @param email 이메일
+	 * @return
+	 */
+	public static User createNewUser(String userId, String password, 
+			String nickname, String email) {
+		User user = new User();
+		user.userId = userId;
+		user.password = password;
+		user.nickname = nickname;
+		user.email = email;
+		user.lastPassword = null;
+		user.role = "USER";
+		user.regDate = LocalDateTime.now();
+		user.withdrawDate = null;
+		user.cert = 'N';
+		return user;
+	}
 }

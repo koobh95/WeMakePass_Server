@@ -9,12 +9,14 @@ import org.springframework.transaction.annotation.Transactional;
 import com.github.koobh95.data.model.dto.JwtDTO;
 import com.github.koobh95.data.model.dto.UserInfoDTO;
 import com.github.koobh95.data.model.dto.request.LoginRequest;
+import com.github.koobh95.data.model.dto.request.SignUpRequest;
 import com.github.koobh95.data.model.entity.User;
 import com.github.koobh95.data.model.entity.UserToken;
 import com.github.koobh95.data.model.enums.ErrorCode;
 import com.github.koobh95.data.repository.UserRepository;
 import com.github.koobh95.data.repository.UserTokenRepository;
 import com.github.koobh95.exception.LoginException;
+import com.github.koobh95.exception.SignUpException;
 import com.github.koobh95.security.util.AES256Util;
 import com.github.koobh95.security.util.JwtProvider;
 import com.github.koobh95.service.UserService;
@@ -53,7 +55,7 @@ public class UserServiceImpl implements UserService{
 		final String id = aes256Util.decrypt(userRequest.getUserId());
 		final String password = aes256Util.decrypt(userRequest.getPassword());
 		
-		Optional<User> user = userRepository.findByUserId(id);
+		Optional<User> user = userRepository.findById(id);
 		
 		// 아이디 존재 여부 검증
 		user.orElseThrow(() -> 
@@ -100,5 +102,43 @@ public class UserServiceImpl implements UserService{
 				aes256Util.encrypt(user.get().getNickname()),
 				aes256Util.encrypt(user.get().getEmail()));
 		return userInfo;
+	}
+
+	/**
+	 * - 회원가입 요청을 처리하는 메서드다.
+	 * - SignUpRequest에는 회원가입 시 필요한 필수 입력값들이 암호화된 채로 초기화되어 있다. 각 
+	 * 데이터에 대한 제한 사항은 클라이언트 측에서 검증했으므로 여기서는 DB에 저장된 유저 데이터들과 중복
+	 * 검사만 수행한다. 
+	 * - 새로운 사용자 정보를 DB에 저장할 때 비밀번호는 단방향 암호화한 채로 저장한다.
+	 * 
+	 * @param signUpRequest 
+	 */
+	@Override
+	public void signUp(SignUpRequest signUpRequest) {
+		final String id = aes256Util.decrypt(signUpRequest.getUserId());
+		final String password = aes256Util.decrypt(signUpRequest.getPassword());
+		final String nickname = aes256Util.decrypt(signUpRequest.getNickname());
+		final String email = aes256Util.decrypt(signUpRequest.getEmail());
+		
+		// 아이디 중복 검사
+		userRepository.findById(id).ifPresent(m -> {
+			throw new SignUpException(ErrorCode.USER_ID_DUPLICATED, "id=" + id);
+		});
+		
+		// 닉네임 중복 검사
+		userRepository.findByNickname(nickname).ifPresent(m -> {
+			throw new SignUpException(ErrorCode.NICKNAME_DUPLICATED, 
+					"nickname=" + nickname);
+		});
+		
+		// 이메일 중복 검사
+		userRepository.findByEmail(email).ifPresent(m -> {
+			throw new SignUpException(ErrorCode.EMAIL_DUPLICATED, 
+					"email=" + email);
+		});
+		
+		String encryptedPassword = passwordEncoder.encode(password); // 암호화
+		userRepository.save(
+				User.createNewUser(id, encryptedPassword, nickname, email));
 	}
 }

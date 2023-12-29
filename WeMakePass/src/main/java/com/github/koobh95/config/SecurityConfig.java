@@ -39,7 +39,8 @@ public class SecurityConfig {
 	private final WmpUserDetailsService wmpUserDetailsService;
 	
 	// 보안을 적용하지 않을 URI
-	private String[] permitUris = { 
+	private String[] permitUris = {
+			"/api/user/sign_up", // 회원가입
 			"/api/user/login", // 로그인
 			"/api/user/info", // 클라이언틍 저장할 사용자 정보
 			"/api/jwt/reissue"}; // 토큰 재발급

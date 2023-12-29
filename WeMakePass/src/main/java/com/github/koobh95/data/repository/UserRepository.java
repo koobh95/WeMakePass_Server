@@ -13,11 +13,9 @@ import com.github.koobh95.data.model.entity.User;
  * @since 2023-12-23
  */
 public interface UserRepository extends JpaRepository<User, String>{
-	/**
-	 * 특정 유저의 Id와 일치하는 유저 정보를 조회한다. 
-	 * 
-	 * @param userId DB에서 조회하고자 하는 아이디
-	 * @return
-	 */
-	Optional<User> findByUserId(String userId);
+	// 특정 닉네임을 가진 유저를 조회한다.
+	Optional<User> findByNickname(String nickname);
+
+	// 특정 이메일을 가진 유저를 조회한다.
+	Optional<User> findByEmail(String email);
 }

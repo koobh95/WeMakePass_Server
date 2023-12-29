@@ -30,7 +30,7 @@ public class WmpUserDetailsService implements UserDetailsService {
 	@Override
 	public WmpUserDetails loadUserByUsername(String username) 
 			throws UsernameNotFoundException {
-		Optional<User> user = userRepository.findByUserId(username);
+		Optional<User> user = userRepository.findById(username);
 		
 		if(!user.isPresent())
 			throw new UsernameNotFoundException(username);

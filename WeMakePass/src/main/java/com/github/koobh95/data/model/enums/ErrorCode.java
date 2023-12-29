@@ -34,7 +34,14 @@ public enum ErrorCode {
 	// 이메일 인증이 완료되지 않은 사용자.
 	UNCERT_USER(HttpStatus.BAD_REQUEST, "이메일 인증이 완료되지 않은 사용자입니다."),
 	// 탈퇴된 사용자.
-	WITHDRAW_ACCOUNT(HttpStatus.BAD_REQUEST, "탈퇴된 계정입니다.");
+	WITHDRAW_ACCOUNT(HttpStatus.BAD_REQUEST, "탈퇴된 계정입니다."),
+	
+	// 회원가입 시 사용자가 입력한 아이디가 이미 DB에 존재함.
+	USER_ID_DUPLICATED(HttpStatus.BAD_REQUEST, "이 아이디는 이미 사용 중입니다."),
+	// 회원가입 시 사용자가 입력한 닉네임이 이미 DB에 존재함.
+	NICKNAME_DUPLICATED(HttpStatus.BAD_REQUEST, "이 닉네임은 이미 사용 중입니다."),
+	// 회원가입 시 사용자가 입력한 이메일이 이미 DB에 존재함.
+	EMAIL_DUPLICATED(HttpStatus.BAD_REQUEST, "이 메일은 이미 사용중입니다.");
 		
 	private HttpStatus httpStatus; // 클라이언트에게 반환할 상태 코드
 	private String message; // 클라이언트에게 반환할 메시지
