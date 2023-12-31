@@ -13,6 +13,7 @@ import com.github.koobh95.exception.JwtReissueException;
 import com.github.koobh95.exception.LoginException;
 import com.github.koobh95.exception.MailServiceException;
 import com.github.koobh95.exception.SignUpException;
+import com.github.koobh95.exception.UserModifyException;
 
 /**
  *  Controller, Service 단에서 요청을 처리할 수 없을 때 인위적으로 발생시키는 Exception을 
@@ -70,6 +71,13 @@ public class CustomExceptionHandler {
 	@ExceptionHandler(MailServiceException.class)
 	protected ResponseEntity<ErrorResponse> mailServiceException(
 			MailServiceException e) {
+		return createErrorResponseEntity(e.getErrorCode());
+	}
+	
+	// 사용자 정보 수정 실패 
+	@ExceptionHandler(UserModifyException.class)
+	protected ResponseEntity<ErrorResponse> userModifyException(
+			UserModifyException e) {
 		return createErrorResponseEntity(e.getErrorCode());
 	}
 	

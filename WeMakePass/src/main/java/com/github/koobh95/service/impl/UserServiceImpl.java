@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.github.koobh95.data.model.dto.JwtDTO;
 import com.github.koobh95.data.model.dto.UserInfoDTO;
 import com.github.koobh95.data.model.dto.request.LoginRequest;
+import com.github.koobh95.data.model.dto.request.PasswordResetRequest;
 import com.github.koobh95.data.model.dto.request.SignUpRequest;
 import com.github.koobh95.data.model.entity.User;
 import com.github.koobh95.data.model.entity.UserToken;
@@ -17,6 +18,7 @@ import com.github.koobh95.data.repository.UserRepository;
 import com.github.koobh95.data.repository.UserTokenRepository;
 import com.github.koobh95.exception.LoginException;
 import com.github.koobh95.exception.SignUpException;
+import com.github.koobh95.exception.UserModifyException;
 import com.github.koobh95.security.util.AES256Util;
 import com.github.koobh95.security.util.JwtProvider;
 import com.github.koobh95.service.UserService;
@@ -140,5 +142,35 @@ public class UserServiceImpl implements UserService{
 		String encryptedPassword = passwordEncoder.encode(password); // 암호화
 		userRepository.save(
 				User.createNewUser(id, encryptedPassword, nickname, email));
+	}
+
+	/**
+	 * - 비밀번호 변경 요청을 처리하는 메서드다.
+	 * - PasswordResetRequest 객체가 가진 아이디와 비밀번호는 양방향 암호화된 상태이기 때문에 
+	 *  복호화한 뒤 데이터를 검증에 사용한다.  
+	 * - 비밀번호 변경 API가 호출되려면 기본적으로 계정 인증이 수행되어야 하기 때문에 계정 데이터 존재
+	 *  여부는 별도로 확인하지 않는다.
+	 * - 비밀번호를 변경하려면 현재 사용 중인 비밀번호와 일치하지 않으면서 이전에 사용한 비밀번호와도
+	 *  일치하지 않아야 한다. 두 조건을 모두 만족했을 경우 비밀번호를 변경한다.  
+	 * 
+	 * @param request 
+	 */
+	@Transactional
+	@Override
+	public void passwordReset(PasswordResetRequest request) {
+		final String userId = aes256Util.decrypt(request.getUserId());
+		final String newPassword = aes256Util.decrypt(request.getPassword());
+		User user = userRepository.findById(userId).get();
+		
+		if(passwordEncoder.matches(newPassword, user.getPassword()))
+			throw new UserModifyException(ErrorCode.PASSWORD_CURRENTLY_USE,
+					"id=" + userId);
+
+		if(user.getLastPassword() != null && 
+				passwordEncoder.matches(newPassword, user.getLastPassword()))
+			throw new UserModifyException(ErrorCode.PASSWORD_PREVIOUSLY_USE,
+					"id=" + userId);
+
+		user.updatePassword(passwordEncoder.encode(newPassword));
 	}
 }

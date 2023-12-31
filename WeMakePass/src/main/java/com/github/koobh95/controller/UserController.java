@@ -1,5 +1,6 @@
 package com.github.koobh95.controller;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.github.koobh95.data.model.dto.JwtDTO;
 import com.github.koobh95.data.model.dto.UserInfoDTO;
 import com.github.koobh95.data.model.dto.request.LoginRequest;
+import com.github.koobh95.data.model.dto.request.PasswordResetRequest;
 import com.github.koobh95.data.model.dto.request.SignUpRequest;
 import com.github.koobh95.service.UserService;
 
@@ -60,5 +62,18 @@ public class UserController {
 	public String signUp(@RequestBody SignUpRequest signUpRequest) {
 		userService.signUp(signUpRequest);
 		return "회원가입이 완료되었습니다.";
+	}
+	
+	/**
+	 * 비밀번호 변경 요청
+	 * 
+	 * @param request 새로운 비밀번호와 변경 대상 아이디
+	 * @return
+	 */
+	@PutMapping(value="/password_reset")
+	public ResponseEntity<String> passwordReset(
+			@RequestBody PasswordResetRequest request) {
+		userService.passwordReset(request);
+		return ResponseEntity.ok("비밀번호가 성공적으로 변경되었습니다.");
 	}
 }

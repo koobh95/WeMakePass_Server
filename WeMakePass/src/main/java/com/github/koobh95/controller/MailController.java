@@ -45,4 +45,28 @@ public class MailController {
 		mailService.confirm(userId, code);
 		return ResponseEntity.ok("인증에 성공했습니다.");
 	}
+	 
+	/**
+	 * 사용자의 이메일을 기반으로 아이디 찾기 메일을 전송한다.
+	 * 
+	 * @param email 사용자가 입력한 이메일 주소
+	 * @return
+	 */
+	@GetMapping("/forget_id")
+	public ResponseEntity<String> forgetId(String email) {
+		mailService.sendFindIdMail(email);
+		return ResponseEntity.ok("메일을 성공적으로 전송했습니다.");
+	}
+	
+	/**
+	 * 비밀번호 찾기 메일을 전송한다.
+	 * 
+	 * @param userId 사용자가 입력한 아이디
+	 * @return
+	 */
+	@GetMapping("/forget_password")
+	public ResponseEntity<String> forgetPassword(String userId) {
+		mailService.sendFindPasswordMail(userId);
+		return ResponseEntity.ok("메일을 성공적으로 전송했습니다.");
+	}
 }

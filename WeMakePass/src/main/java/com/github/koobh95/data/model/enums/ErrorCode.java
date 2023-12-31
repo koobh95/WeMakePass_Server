@@ -44,7 +44,15 @@ public enum ErrorCode {
 	EMAIL_DUPLICATED(HttpStatus.BAD_REQUEST, "이 메일은 이미 사용중입니다."),
 
 	// 이메일 인증 검증 - 코드 불일치
-	CERT_CODE_MISMATCH(HttpStatus.BAD_REQUEST, "인증 번호가 일치하지 않습니다.");
+	CERT_CODE_MISMATCH(HttpStatus.BAD_REQUEST, "인증 번호가 일치하지 않습니다."),
+	// 이메일 인증을 시도했으나 이메일이 없음
+	EMAIL_NOT_FOUND(HttpStatus.NOT_FOUND, "존재하지 않는 이메일입니다."),
+	
+	// 비밀번호 변경 실패 - 변경하려는 비밀번호가 현재 사용 중인 비밀번호와 같음.
+	PASSWORD_CURRENTLY_USE(HttpStatus.BAD_REQUEST, "이미 사용 중인 비밀번호입니다."),
+	// 비밀번호 변경 실패 - 변경하려는 비밀번호가 이전에 사용한 비밀번호가 같음.
+	PASSWORD_PREVIOUSLY_USE(HttpStatus.BAD_REQUEST, 
+			"전에 사용한 비밀번호는 다시 사용할 수 없습니다.");
 		
 	private HttpStatus httpStatus; // 클라이언트에게 반환할 상태 코드
 	private String message; // 클라이언트에게 반환할 메시지

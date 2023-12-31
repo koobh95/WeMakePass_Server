@@ -67,4 +67,15 @@ public class User {
 	public void setCertificated() {
 		cert = 'Y';
 	}
+	
+	/**
+	 *  사용자 계정의 비밀번호를 갱신한다. 현재 사용 중인 비밀번호를 마지막 사용한 비밀번호에 저장한 뒤
+	 * 새로운 비밀번호를 현재 계정의 비밀번호로 사용한다.
+	 * 
+	 * @param newPassword 새로운 비밀번호
+	 */
+	public void updatePassword(String newPassword) {
+		lastPassword = password;
+		password = newPassword;
+	}
 }

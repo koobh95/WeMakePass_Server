@@ -3,6 +3,7 @@ package com.github.koobh95.service;
 import com.github.koobh95.data.model.dto.JwtDTO;
 import com.github.koobh95.data.model.dto.UserInfoDTO;
 import com.github.koobh95.data.model.dto.request.LoginRequest;
+import com.github.koobh95.data.model.dto.request.PasswordResetRequest;
 import com.github.koobh95.data.model.dto.request.SignUpRequest;
 
 /**
@@ -18,4 +19,6 @@ public interface UserService {
 	UserInfoDTO userInfo(String userId);
 	// 회원가입 요청 처리
 	void signUp(SignUpRequest signUpRequest);
+	// 비밀번호 변경
+	void passwordReset(PasswordResetRequest request);
 }
