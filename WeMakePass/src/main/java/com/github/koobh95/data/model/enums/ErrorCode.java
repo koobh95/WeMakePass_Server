@@ -41,7 +41,10 @@ public enum ErrorCode {
 	// 회원가입 시 사용자가 입력한 닉네임이 이미 DB에 존재함.
 	NICKNAME_DUPLICATED(HttpStatus.BAD_REQUEST, "이 닉네임은 이미 사용 중입니다."),
 	// 회원가입 시 사용자가 입력한 이메일이 이미 DB에 존재함.
-	EMAIL_DUPLICATED(HttpStatus.BAD_REQUEST, "이 메일은 이미 사용중입니다.");
+	EMAIL_DUPLICATED(HttpStatus.BAD_REQUEST, "이 메일은 이미 사용중입니다."),
+
+	// 이메일 인증 검증 - 코드 불일치
+	CERT_CODE_MISMATCH(HttpStatus.BAD_REQUEST, "인증 번호가 일치하지 않습니다.");
 		
 	private HttpStatus httpStatus; // 클라이언트에게 반환할 상태 코드
 	private String message; // 클라이언트에게 반환할 메시지

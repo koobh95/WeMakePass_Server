@@ -11,7 +11,10 @@ import org.springframework.context.annotation.Import;
  * @since 2023-12-19
  */
 @Configuration
-@Import({ DBConfig.class })
+@Import({ 
+	DBConfig.class,
+	MailConfig.class,
+	AsyncConfig.class })
 @ComponentScan(basePackages = { "com.github.koobh95.service.impl" })
 public class AppConfig {
 	

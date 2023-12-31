@@ -11,6 +11,7 @@ import com.github.koobh95.exception.AesDecryptException;
 import com.github.koobh95.exception.AesEncryptException;
 import com.github.koobh95.exception.JwtReissueException;
 import com.github.koobh95.exception.LoginException;
+import com.github.koobh95.exception.MailServiceException;
 import com.github.koobh95.exception.SignUpException;
 
 /**
@@ -62,6 +63,13 @@ public class CustomExceptionHandler {
 	@ExceptionHandler(SignUpException.class)
 	protected ResponseEntity<ErrorResponse> signUpException(
 			SignUpException e) {
+		return createErrorResponseEntity(e.getErrorCode());
+	}
+	
+	// 이메일 서비스 처리 중 에러 발생
+	@ExceptionHandler(MailServiceException.class)
+	protected ResponseEntity<ErrorResponse> mailServiceException(
+			MailServiceException e) {
 		return createErrorResponseEntity(e.getErrorCode());
 	}
 	

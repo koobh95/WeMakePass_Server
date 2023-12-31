@@ -62,4 +62,9 @@ public class User {
 		user.cert = 'N';
 		return user;
 	}
+	
+	// 계정 인증에 성공했을 때 계정 인증 여부를 갱신
+	public void setCertificated() {
+		cert = 'Y';
+	}
 }
