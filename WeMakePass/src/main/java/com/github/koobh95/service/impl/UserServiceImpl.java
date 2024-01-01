@@ -193,4 +193,19 @@ public class UserServiceImpl implements UserService{
 		User user = userRepository.findById(userId).get();
 		user.updateNickname(newNickname);
 	}
+
+	/**
+	 * 로그인된 사용자가 비밀번호를 변경하기 위해 현재 비밀번호를 검증한다.
+	 * 
+	 * @param userId 사용자 아이디
+	 * @param encryptedPassword 암호화된 비밀번호 
+	 */
+	@Override
+	public void currnetPasswordAuth(String userId, String encryptedPassword) {
+		final String password = aes256Util.decrypt(encryptedPassword);
+		User user = userRepository.findById(userId).get();
+		if(!passwordEncoder.matches(password, user.getPassword()))
+			throw new UserModifyException(ErrorCode.PASSWORD_MISMATCH, 
+					"id=" + userId);
+	}
 }

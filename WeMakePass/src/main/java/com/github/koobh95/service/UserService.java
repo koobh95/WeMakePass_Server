@@ -23,4 +23,6 @@ public interface UserService {
 	void passwordReset(PasswordResetRequest request);
 	// 닉네임 변경
 	void nicknameChange(String userId, String newNickname);
+	// 비밀번호 변경을 위해 현재 비밀번호를 검증한다.
+	void currnetPasswordAuth(String userId, String encryptedPassword);
 }

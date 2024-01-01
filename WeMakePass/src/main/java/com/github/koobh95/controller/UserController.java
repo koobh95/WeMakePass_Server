@@ -92,4 +92,21 @@ public class UserController {
 		userService.nicknameChange(authentication.getName(), newNickname);
 		return ResponseEntity.ok("닉네임이 성공적으로 변경되었습니다.");
 	}
+	
+	/**
+	 * 비밀번호을 변경을 위해 현재 비밀번호를 검증한다.
+	 * 
+	 * @param authentication
+	 * @param encryptedPassword
+	 * @return
+	 */
+	@LoginRequired
+	@PostMapping(value="password_auth")
+	public ResponseEntity<String> currentPasswordAuth(
+			Authentication authentication,
+			@RequestBody String encryptedPassword) {
+		userService.currnetPasswordAuth(authentication.getName(), 
+				encryptedPassword);
+		return ResponseEntity.ok("인증되었습니다.");
+	}
 }
