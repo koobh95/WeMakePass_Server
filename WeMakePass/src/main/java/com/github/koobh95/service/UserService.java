@@ -21,4 +21,6 @@ public interface UserService {
 	void signUp(SignUpRequest signUpRequest);
 	// 비밀번호 변경
 	void passwordReset(PasswordResetRequest request);
+	// 닉네임 변경
+	void nicknameChange(String userId, String newNickname);
 }

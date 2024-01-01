@@ -173,4 +173,24 @@ public class UserServiceImpl implements UserService{
 
 		user.updatePassword(passwordEncoder.encode(newPassword));
 	}
+
+	/**
+	 * - 닉네임 변경 요청을 처리한다.
+	 * - 닉네임 변경을 위해서는 클라이언트에서 로그인이 필요하기 때문에 계정의 존재 여부는 검증하지 않는다.
+	 * - 변경하려는 닉네임과 같은 데이터가 DB에 존재하는지 확인하여 없을 경우 닉네임을 갱신한다.
+	 * 
+	 * @param userId 
+	 * @param newNickname 
+	 */
+	@Transactional
+	@Override
+	public void nicknameChange(String userId, String newNickname) {
+		userRepository.findByNickname(newNickname).ifPresent(m -> {
+			throw new UserModifyException(ErrorCode.NICKNAME_DUPLICATED, 
+					"id=" + userId + ", nickname=" + newNickname);
+		});
+		
+		User user = userRepository.findById(userId).get();
+		user.updateNickname(newNickname);
+	}
 }

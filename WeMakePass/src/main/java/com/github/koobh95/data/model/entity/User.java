@@ -78,4 +78,13 @@ public class User {
 		lastPassword = password;
 		password = newPassword;
 	}
+	
+	/**
+	 * 닉네임을 갱신한다.
+	 * 
+	 * @param newNickname 변경할 닉네임
+	 */
+	public void updateNickname(String newNickname) {
+		nickname = newNickname;
+	}
 }

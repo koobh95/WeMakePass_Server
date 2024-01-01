@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.github.koobh95.annotation.LoginRequired;
 import com.github.koobh95.data.model.dto.JwtDTO;
 import com.github.koobh95.data.model.dto.UserInfoDTO;
 import com.github.koobh95.data.model.dto.request.LoginRequest;
@@ -59,9 +60,9 @@ public class UserController {
 	 * @return
 	 */
 	@PutMapping(value="/sign_up")
-	public String signUp(@RequestBody SignUpRequest signUpRequest) {
+	public ResponseEntity<String> signUp(@RequestBody SignUpRequest signUpRequest) {
 		userService.signUp(signUpRequest);
-		return "회원가입이 완료되었습니다.";
+		return ResponseEntity.ok("회원가입이 완료되었습니다.");
 	}
 	
 	/**
@@ -75,5 +76,20 @@ public class UserController {
 			@RequestBody PasswordResetRequest request) {
 		userService.passwordReset(request);
 		return ResponseEntity.ok("비밀번호가 성공적으로 변경되었습니다.");
+	}
+
+	/**
+	 * 닉네임 변경 요청
+	 * 
+	 * @param authentication 인증 과정에서 저장된 인증 객체, UserId를 추출하기 위해 사용.
+	 * @param newNickname 변경할 닉네임
+	 * @return
+	 */
+	@LoginRequired
+	@GetMapping(value="/nickname_change")
+	public ResponseEntity<String> nicknameChange(Authentication authentication, 
+			String newNickname) {
+		userService.nicknameChange(authentication.getName(), newNickname);
+		return ResponseEntity.ok("닉네임이 성공적으로 변경되었습니다.");
 	}
 }
