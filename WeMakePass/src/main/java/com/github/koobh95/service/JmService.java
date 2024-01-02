@@ -13,4 +13,6 @@ import com.github.koobh95.data.model.dto.JmDTO;
 public interface JmService {
 	// Keyword와 JmName이 부분일치하는 데이터 검색
 	List<JmDTO> searchByJmName(String keyword);
+	// Keyword로 종목 이름을 검색하되, DB에 시험 데이터를 가진 종목에 한하여 검색
+	List<JmDTO> searchByJmNameWithExam(String keyword);
 }

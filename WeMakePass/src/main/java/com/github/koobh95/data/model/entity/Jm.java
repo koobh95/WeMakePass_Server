@@ -1,11 +1,14 @@
 package com.github.koobh95.data.model.entity;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.github.koobh95.data.model.dto.JmDTO;
@@ -24,18 +27,17 @@ import lombok.Getter;
 public class Jm {
 	@Id
 	@Column(name="jm_code")
-	private String jmCode; // 숫자 4개로 이루어진 종목 식별 코드
+	private String jmCode; // 종목의 고유 식별 번호
 	@Column(name="jm_name")
 	private String jmName; // 종목 이름
 	@Column(name="qual_code")
 	private String qualCode; // 종목 계열
 	
-	/**
-	 * JmEntity 리스트를 JmDTO 리스트로 변환
-	 * 
-	 * @param entityList
-	 * @return
-	 */
+	// 종목의 시험 리스트
+	@OneToMany(mappedBy = "jm", fetch = FetchType.LAZY)
+	private List<ExamInfo> examInfoList = new ArrayList<>(); 
+	
+	// JmEntity 리스트를 JmDTO 리스트로 변환
 	public static List<JmDTO> toDtoList(List<Jm> entityList) {
 		return entityList.stream()
 				.map(e -> new JmDTO(e.getJmCode(), e.getJmName()))

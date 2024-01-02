@@ -33,8 +33,19 @@ public class JmController {
 	 */
 	@LoginRequired
 	@GetMapping(value = "/search")
-	public List<JmDTO> search(
-			@RequestParam String keyword) {
+	public List<JmDTO> search(@RequestParam String keyword) {
 		return jmService.searchByJmName(keyword);
+	}
+	
+	/**
+	 * 종목 이름을 기준으로 데이터를 조회하되 시험 데이터가 있는 종목을 조회
+	 * 
+	 * @param keyword 검색어
+	 * @return 시험 데이터가 있는 종목 리스트
+	 */
+	@LoginRequired
+	@GetMapping(value = "/search/with_exam_info")
+	public List<JmDTO> searchForJmWithExamInfo(@RequestParam String keyword){
+		return jmService.searchByJmNameWithExam(keyword);
 	}
 }
