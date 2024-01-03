@@ -1,5 +1,7 @@
 package com.github.koobh95.service.impl;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
 import com.github.koobh95.data.model.entity.ExamInfo;
@@ -33,5 +35,15 @@ public class ExamInfoServiceImpl implements ExamInfoService {
 		return examInfoRepository.
 				findByJmCodeAndImplYearAndImplSeqAndExamFormat(
 						jmCode, implYear, implSeq, examFormat);
+	}
+
+	/**
+	 * 특정 종목의 시험을 조회
+	 * 
+	 * @param jmCode 조회할 종목 코드
+	 */
+	@Override
+	public List<ExamInfo> getExamInfoList(String jmCode) {
+		return examInfoRepository.findByJmCode(jmCode);
 	}
 }

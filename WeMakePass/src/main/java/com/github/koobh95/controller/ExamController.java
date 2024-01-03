@@ -1,5 +1,7 @@
 package com.github.koobh95.controller;
 
+import java.util.List;
+
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -40,5 +42,17 @@ public class ExamController {
 			@RequestParam String examFormat) {
 		return examInfoService
 				.getExamInfo(jmCode, implYear, implSeq, examFormat);
+	}
+	
+	/**
+	 * 특정 종목의 시험을 조회한다.
+	 * 
+	 * @param jmCode 조회할 종목의 식별 번호
+	 * @return
+	 */
+	@LoginRequired
+	@GetMapping(value = "/list")
+	public List<ExamInfo> examInfoList(@RequestParam String jmCode) {
+		return examInfoService.getExamInfoList(jmCode);
 	}
 }
