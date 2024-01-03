@@ -11,5 +11,7 @@ import com.github.koobh95.data.model.entity.ExamInfo;
  * @since 2024-01-01
  */
 public interface ExamInfoRepository extends JpaRepository<ExamInfo, String> {
-
+	// 종목 코드, 시행 년도, 시행 회차, 시험 형식과 일치하는 데이터 조회
+	ExamInfo findByJmCodeAndImplYearAndImplSeqAndExamFormat(
+			String jmCode, int implYear, int implSeq, String examFormat);
 }

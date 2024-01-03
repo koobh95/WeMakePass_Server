@@ -10,7 +10,7 @@ import com.github.koobh95.service.MailService;
 import lombok.RequiredArgsConstructor;
 
 /**
- * 메일 관련 비지니스 로직을 처리한다.
+ * 메일 관련 API를 제공한다.
  * 
  * @author BH-Ku
  * @since 2023-12-30
