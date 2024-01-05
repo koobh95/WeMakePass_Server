@@ -48,6 +48,7 @@ public class UserController {
 	 * @param authentication 인증 단계에서 저장한 인증 객체.
 	 * @return
 	 */
+	@LoginRequired
 	@GetMapping(value="/info")
 	public UserInfoDTO userInfo(Authentication authentication){
 		return userService.userInfo(authentication.getName());

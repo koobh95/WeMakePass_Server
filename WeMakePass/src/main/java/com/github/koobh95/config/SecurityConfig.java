@@ -42,7 +42,6 @@ public class SecurityConfig {
 	private String[] permitUris = {
 			"/api/user/sign_up", // 회원가입
 			"/api/user/login", // 로그인
-			"/api/user/info", // 클라이언틍 저장할 사용자 정보
 			"/api/jwt/reissue", // 토큰 재발급
 			"/api/mail/**", // 메일 전송 관련 모든 API
 			"/api/user/password_reset",}; // 비밀번호 변경 요청

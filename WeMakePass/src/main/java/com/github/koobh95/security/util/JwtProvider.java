@@ -25,7 +25,7 @@ public class JwtProvider {
 	private Key secretKey;
 
 	private final SignatureAlgorithm signatureAlgorithm = SignatureAlgorithm.HS256;
-	private final long ACCESS_TOKEN_EXPIRATION = 1000 * 60 * 60 * 20L; // 20분
+	private final long ACCESS_TOKEN_EXPIRATION = 1000 * 60 * 20L; // 20분
 	private final long REFRESH_TOKEN_EXPIRATION = 1000 * 60 * 60 * 24 * 30L; // 1달
 	public final static String HEADER_AUTHORIZATION = "Authorization";
 	public final static String TOKEN_TYPE = "Bearer ";
