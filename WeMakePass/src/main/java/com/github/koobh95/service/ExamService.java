@@ -2,6 +2,7 @@ package com.github.koobh95.service;
 
 import java.util.List;
 
+import com.github.koobh95.data.model.dto.ExamResultDTO;
 import com.github.koobh95.data.model.entity.ExamInfo;
 
 /**
@@ -16,4 +17,6 @@ public interface ExamService {
 			String examFormat);
 	// 특정 종목의 시험을 조회
 	List<ExamInfo> getExamInfoList(String jmCode);
+	// 시험 결과 저장
+	void saveResult(ExamResultDTO examResultDTO);
 }

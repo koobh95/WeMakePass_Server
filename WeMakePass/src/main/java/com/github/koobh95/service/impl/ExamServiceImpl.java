@@ -4,8 +4,11 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import com.github.koobh95.data.model.dto.ExamResultDTO;
 import com.github.koobh95.data.model.entity.ExamInfo;
+import com.github.koobh95.data.model.entity.ExamResult;
 import com.github.koobh95.data.repository.ExamInfoRepository;
+import com.github.koobh95.data.repository.ExamResultRepository;
 import com.github.koobh95.service.ExamService;
 
 import lombok.RequiredArgsConstructor;
@@ -20,6 +23,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class ExamServiceImpl implements ExamService {
 	private final ExamInfoRepository examInfoRepository;
+	private final ExamResultRepository examResultRepository;
 
 	/**
 	 * 종목 코드, 시행 년도, 시행 회차, 시험 형식과 일치하는 시험 정보를 조회
@@ -45,5 +49,20 @@ public class ExamServiceImpl implements ExamService {
 	@Override
 	public List<ExamInfo> getExamInfoList(String jmCode) {
 		return examInfoRepository.findByJmCode(jmCode);
+	}
+
+	/**
+	 * 시험 결과를 저장
+	 * 
+	 * @param examResultDTO 시험 결과와 관련된 데이터를 가진 객체
+	 */
+	@Override
+	public void saveResult(ExamResultDTO examResultDTO) {
+		examResultRepository.save(ExamResult.create(examResultDTO.getExamId(), 
+				examResultDTO.getUserId(), 
+				examResultDTO.getReasonForRejection(),
+				examResultDTO.getElapsedTime(),
+				examResultDTO.getScore(),
+				examResultDTO.getAnswerSheet()));
 	}
 }
