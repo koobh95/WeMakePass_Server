@@ -6,6 +6,7 @@ import java.util.Set;
 
 import org.springframework.stereotype.Service;
 
+import com.github.koobh95.data.model.entity.DocQuestion;
 import com.github.koobh95.data.model.entity.mapping.SubjectNameMapping;
 import com.github.koobh95.data.repository.DocQuestionRepository;
 import com.github.koobh95.service.ExamDocService;
@@ -25,7 +26,7 @@ public class ExamDocServiceImpl implements ExamDocService{
 	
 	/**
 	 * - 특정 시험의 과목 목록을 반환한다.
-	 * - 조회하려는 시험의 식별 번호를 조회하되 문항 번호를 내림차순으로 조회하여 각 문항의 과목 순서를
+	 * - 조회하려는 시험의 식별 번호를 조회하되 문항 번호를 오름차순으로 조회하여 각 문항의 과목 순서를
 	 *  유지하여 조회할 수 있게 한다. 읽어 온 데이터는 Set에 모두 저장하여 중복을 제거한 뒤 반환하는데
 	 *  이 때 Set에 저장되는 과목의 순서를 보장하기 위해서 HashSet이 아닌 LinkedHashSet을 
 	 *  사용하였다.
@@ -45,5 +46,15 @@ public class ExamDocServiceImpl implements ExamDocService{
 			subjectSet.add(m.getSubjectName());
 		
 		return subjectSet;
+	}
+
+	/**
+	 * 특정 시험의 문제 목록을 오름차순으로 조회한다.
+	 * 
+	 * @param examId 조회할 시험의 고유 식별 번호
+	 */
+	@Override
+	public List<DocQuestion> getQuestionList(long examId) {
+		return docQuestionRepository.findByExamIdOrderByQuestionIdAsc(examId);
 	}
 }
