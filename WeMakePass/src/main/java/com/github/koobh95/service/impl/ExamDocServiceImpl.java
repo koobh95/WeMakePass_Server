@@ -6,8 +6,11 @@ import java.util.Set;
 
 import org.springframework.stereotype.Service;
 
+import com.github.koobh95.data.model.dto.DocAnswerDTO;
+import com.github.koobh95.data.model.entity.DocAnswer;
 import com.github.koobh95.data.model.entity.DocQuestion;
 import com.github.koobh95.data.model.entity.mapping.SubjectNameMapping;
+import com.github.koobh95.data.repository.DocAnswerRepository;
 import com.github.koobh95.data.repository.DocQuestionRepository;
 import com.github.koobh95.service.ExamDocService;
 
@@ -23,6 +26,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class ExamDocServiceImpl implements ExamDocService{
 	private final DocQuestionRepository docQuestionRepository;
+	private final DocAnswerRepository docAnswerRepository;
 	
 	/**
 	 * - 특정 시험의 과목 목록을 반환한다.
@@ -49,12 +53,23 @@ public class ExamDocServiceImpl implements ExamDocService{
 	}
 
 	/**
-	 * 특정 시험의 문제 목록을 오름차순으로 조회한다.
+	 * 특정 필기 시험의 문제 목록을 오름차순으로 조회한다.
 	 * 
 	 * @param examId 조회할 시험의 고유 식별 번호
 	 */
 	@Override
 	public List<DocQuestion> getQuestionList(long examId) {
 		return docQuestionRepository.findByExamIdOrderByQuestionIdAsc(examId);
+	}
+
+	/**
+	 * 특정 필기 시험의 답안 목록을 오름차순으로 조회한 뒤 DTO 리스트로 변환하여 반환한다.
+	 * 
+	 * @param examId 조회할 시험의 고유 식별 번호
+	 */
+	@Override
+	public List<DocAnswerDTO> getAnswerList(long examId) {
+		return DocAnswer.toDtoList(docAnswerRepository.
+				findByExamIdOrderByQuestionId(examId));
 	}
 }

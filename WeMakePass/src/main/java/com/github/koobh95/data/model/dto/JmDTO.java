@@ -4,7 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 /**
- * JmEntity에서 네트워크 전송에 필요한 데이터만을 갖는 DTO 클래스
+ * Jm Entity 클래스에서 네트워크 전송에 필요한 데이터만을 갖는 DTO 클래스
  * 
  * @author BH-Ku
  * @since 2023-12-19

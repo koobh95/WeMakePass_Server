@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.github.koobh95.annotation.LoginRequired;
+import com.github.koobh95.data.model.dto.DocAnswerDTO;
 import com.github.koobh95.data.model.entity.DocQuestion;
 import com.github.koobh95.service.ExamDocService;
 
@@ -35,5 +36,18 @@ public class ExamController {
 	@GetMapping(value = "/doc/question")
 	public List<DocQuestion> docQuestionList(@RequestParam long examId){
 		return examDocService.getQuestionList(examId);
+	}
+	
+	/**
+	 * 특정 필기 시험의 답안 목록을 조회한다.
+	 * 
+	 * @param examId
+	 * @return
+	 */
+	@LoginRequired
+	@GetMapping(value = "/doc/answer")
+	public List<DocAnswerDTO> docAnswerList(@RequestParam long examId){
+		System.out.println("[Request] ExamController/docAnswerList");
+		return examDocService.getAnswerList(examId);
 	}
 }
