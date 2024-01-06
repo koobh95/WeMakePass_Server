@@ -10,7 +10,7 @@ import com.github.koobh95.data.model.entity.ExamInfo;
  * @author BH-Ku
  * @since 2024-01-03
  */
-public interface ExamInfoService {
+public interface ExamService {
 	// 종목 코드, 시행 년도, 시행 회차, 시험 형식과 일치하는 시험 정보를 조회
 	ExamInfo getExamInfo(String jmCode, int implYear, int implSeq, 
 			String examFormat);

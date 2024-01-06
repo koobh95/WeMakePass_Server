@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 
 import com.github.koobh95.data.model.entity.ExamInfo;
 import com.github.koobh95.data.repository.ExamInfoRepository;
-import com.github.koobh95.service.ExamInfoService;
+import com.github.koobh95.service.ExamService;
 
 import lombok.RequiredArgsConstructor;
 
@@ -18,7 +18,7 @@ import lombok.RequiredArgsConstructor;
  */
 @Service("examInfoService")
 @RequiredArgsConstructor
-public class ExamInfoServiceImpl implements ExamInfoService {
+public class ExamServiceImpl implements ExamService {
 	private final ExamInfoRepository examInfoRepository;
 
 	/**

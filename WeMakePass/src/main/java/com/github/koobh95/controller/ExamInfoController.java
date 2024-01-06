@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.github.koobh95.annotation.LoginRequired;
 import com.github.koobh95.data.model.entity.ExamInfo;
 import com.github.koobh95.service.ExamDocService;
-import com.github.koobh95.service.ExamInfoService;
+import com.github.koobh95.service.ExamService;
 
 import lombok.RequiredArgsConstructor;
 
@@ -25,7 +25,7 @@ import lombok.RequiredArgsConstructor;
 @RequestMapping("api/exam_info")
 @RequiredArgsConstructor
 public class ExamInfoController {
-	private final ExamInfoService examInfoService;
+	private final ExamService examInfoService;
 	private final ExamDocService examDocService;
 	
 	/**
