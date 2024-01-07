@@ -37,4 +37,17 @@ public class BoardController {
 			@RequestParam String keyword) {
 		return boardService.searchByBoardName(keyword);
 	}
+	
+	/**
+	 * 특정 게시판의 카테고리를 조회
+	 * 
+	 * @param boardNo 조회할 게시판의 고유 식별 번호
+	 * @return
+	 */
+	@LoginRequired
+	@GetMapping("/category")
+	public List<String> categoryList(
+			@RequestParam long boardNo) {
+		return boardService.getCategoryList(boardNo);
+	}
 }

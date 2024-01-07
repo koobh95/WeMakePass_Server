@@ -13,4 +13,6 @@ import com.github.koobh95.data.model.entity.Board;
 public interface BoardService {
 	// 게시판 이름을 기준으로 데이터 조회
 	public List<Board> searchByBoardName(String keyword);
+	// 특정 게시판의 카테고리 목록을 조회
+	public List<String> getCategoryList(long boardNo);
 }
