@@ -30,8 +30,8 @@ public class PostServiceImpl implements PostService {
 	/**
 	 * 특정 게시판의 게시글을 페이지 단위로 조회한다.
 	 * 
-	 * @param boardNo 게시판의 
-	 * @param pageNo
+	 * @param boardNo 조회할 게시판의 고유 식별 번호
+	 * @param pageNo 조회할 페이지 번호
 	 */
 	@Override
 	public PostPageResponse postList(long boardNo, int pageNo) {
@@ -40,6 +40,22 @@ public class PostServiceImpl implements PostService {
     					Sort.by("postNo").descending()), 
     			boardNo);
     	return createPostPageResponse(page);
+	}
+
+	/**
+	 * 특정 게시판, 특정 카테고리의 게시글을 페이지 단위로 조회한다.
+	 * 
+	 * @param boardNo 조회할 게시판의 고유 식별 번호
+	 * @param pageNo 조회할 페이지 번호
+	 * @param category 조회할 카테고리
+	 */
+	@Override
+	public PostPageResponse postListByCategory(long boardNo, int pageNo, String category) {
+		Page<PostMapping> page = postRepository.findByBoardNoAndCategory(
+				PageRequest.of(pageNo, PAGE_SIZE, 
+						Sort.by("postNo").descending()),
+				boardNo, category);
+		return createPostPageResponse(page);
 	}
 
 	/**

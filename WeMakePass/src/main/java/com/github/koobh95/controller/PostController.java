@@ -37,4 +37,21 @@ public class PostController {
 			@RequestParam int pageNo) {
 		return postService.postList(boardNo, pageNo);
 	}
+
+	/**
+	 * 특정 게시판의 게시글, 특정 카테고리의 게시글을 페이지 단위로 조회
+	 * 
+	 * @param boardNo 조회할 게시판의 고유 식별 번호
+	 * @param pageNo 조회할 페이지 번호
+	 * @param category 조회할 카테고리
+	 * @return
+	 */
+	@LoginRequired
+	@GetMapping(value = "/category")
+	public PostPageResponse postListByCategory(
+			@RequestParam long boardNo,
+			@RequestParam int pageNo, 
+			@RequestParam String category) {
+		return postService.postListByCategory(boardNo, pageNo, category);
+	}
 }
