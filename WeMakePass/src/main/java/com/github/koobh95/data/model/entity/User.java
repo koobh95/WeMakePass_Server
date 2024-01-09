@@ -1,10 +1,13 @@
 package com.github.koobh95.data.model.entity;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import lombok.AccessLevel;
@@ -36,6 +39,9 @@ public class User {
 	@Column(name="withdraw_date")
 	private LocalDateTime withdrawDate; // 계정 탈퇴 시간
 	private char cert; // 이메일 인증 여부
+	
+	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+	private List<Post> postList; // 사용자가 작성한 게시글 목록, 사용하지 않음.
 	
 	/**
 	 *  DB에 추가할 새로운 User 객체를 생성할 때 사용되는 메서드로서 필수 정보들을 제외한 모든 데이터는
