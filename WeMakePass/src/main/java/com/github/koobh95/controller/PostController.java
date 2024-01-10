@@ -1,11 +1,15 @@
 package com.github.koobh95.controller;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.github.koobh95.annotation.LoginRequired;
+import com.github.koobh95.data.model.dto.request.PostWriteRequest;
 import com.github.koobh95.data.model.dto.response.PostPageResponse;
 import com.github.koobh95.service.PostService;
 
@@ -53,5 +57,19 @@ public class PostController {
 			@RequestParam int pageNo, 
 			@RequestParam String category) {
 		return postService.postListByCategory(boardNo, pageNo, category);
+	}
+	
+	/**
+	 * 새로운 게시글을 DB에 추가.
+	 * 
+	 * @param postWriteRequest 작성된 게시글, 작성된 사용자 등에 대한 데이터를 가진 객체
+	 * @return
+	 */
+	@LoginRequired
+	@PutMapping(value = "/write")
+	public ResponseEntity<String> write(
+			@RequestBody PostWriteRequest postWriteRequest) {
+		postService.write(postWriteRequest);
+		return ResponseEntity.ok("게시글을 저장했습니다.");
 	}
 }

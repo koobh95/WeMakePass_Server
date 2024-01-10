@@ -7,10 +7,13 @@ import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 import org.springframework.data.domain.Page;
@@ -28,10 +31,17 @@ import lombok.Getter;
  */
 @Entity
 @Table(name="post_tb")
+@SequenceGenerator(
+		name="POST_NO_SEQ_GENERATOR",
+		sequenceName = "seq_post_postNo",
+		allocationSize = 1)
 @Getter
 public class Post {
 	@Id
 	@Column(name="post_no")
+	@GeneratedValue(
+			strategy = GenerationType.SEQUENCE,
+			generator = "POST_NO_SEQ_GENERATOR")
 	private long postNo; // 게시글의 고유 식별 번호
 	@Column(name="board_no")
 	private long boardNo; // 게시글이 작성된 게시판의 고유 식별 번호
@@ -53,6 +63,29 @@ public class Post {
 	// 댓글 목록. 게시글 조회 시 댓글 수를 읽어야 하므로 EAGER로 설정.
 	@OneToMany(mappedBy="post", fetch = FetchType.EAGER)
 	private List<Reply> replyList = new ArrayList<>();
+	
+	/**
+	 * DB에 저장할 Entity 객체를 초기화하여 반환한다.
+	 * 
+	 * @param boardNo
+	 * @param category
+	 * @param writer
+	 * @param title
+	 * @param content
+	 * @param regDate
+	 * @return
+	 */
+	public static Post create(long boardNo, String category, String writer, 
+			String title, String content, LocalDateTime regDate) {
+		Post post = new Post();
+		post.boardNo = boardNo;
+		post.category = category;
+		post.writer = writer;
+		post.title = title;
+		post.content = content;
+		post.regDate = regDate;
+		return post;
+	}
 	
 	// Page 객체가 가진 Post Entity 리스트를 Post DTO 리스트로 변환하여 반환한다.
 	public static Page<PostDTO> toDtoList(Page<PostMapping> page){

@@ -6,6 +6,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.github.koobh95.data.model.dto.PostDTO;
+import com.github.koobh95.data.model.dto.request.PostWriteRequest;
 import com.github.koobh95.data.model.dto.response.PostPageResponse;
 import com.github.koobh95.data.model.entity.Post;
 import com.github.koobh95.data.model.entity.mapping.PostMapping;
@@ -72,4 +73,14 @@ public class PostServiceImpl implements PostService {
     			convertedPage.getNumber(),
     			convertedPage.isLast());
     }
+
+    /**
+     * 새로운 게시글을 DB에 저장한다.
+     * 
+     * @param postWriteRequest 새로운 게시글에 대한 데이터를 갖고 있는 객체
+     */
+	@Override
+	public void write(PostWriteRequest postWriteRequest) {
+		postRepository.save(postWriteRequest.toEntity());
+	}
 }
