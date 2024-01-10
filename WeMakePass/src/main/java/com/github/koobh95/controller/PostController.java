@@ -13,6 +13,7 @@ import com.github.koobh95.data.model.dto.PostDetailDTO;
 import com.github.koobh95.data.model.dto.request.PostWriteRequest;
 import com.github.koobh95.data.model.dto.response.PostPageResponse;
 import com.github.koobh95.service.PostService;
+import com.github.koobh95.util.StringUtil;
 
 import lombok.RequiredArgsConstructor;
 
@@ -85,5 +86,77 @@ public class PostController {
 	public PostDetailDTO postDetail(
 			@RequestParam long postNo) {
 		return postService.postDetail(postNo);
+	}
+	
+	/**
+	 * - 특정 게시판에서 게시글 제목과 키워드가 부분 일치하는 게시글을 조회
+	 * - Category가 Null일 경우 모든 카테고리를 대상으로 조회하고 Null이 아닌 경우 특정 카테고리를
+	 *  게시글을 조회한다.
+	 * 
+	 * @param pageNo 조회할 페이지 번호
+	 * @param boardNo 조회할 게시판의 고유 식별 번호
+	 * @param category 조회할 카테고리
+	 * @param keyword 검색어
+	 * @return
+	 */
+	@LoginRequired
+	@GetMapping(value = "/search/title")
+	public PostPageResponse searchTitle(
+			@RequestParam int pageNo,
+			@RequestParam long boardNo,
+			@RequestParam String category,
+			@RequestParam String keyword) {
+		if(StringUtil.isEmpty(category))
+			return postService.searchTitle(pageNo, boardNo, keyword);
+		return postService.searchCategoryAndTitle(pageNo, boardNo, category,
+				keyword);
+	}
+	
+	/**
+	 * - 특정 게시판에서 게시글의 내용에서 키워드가 부분 일치하는 게시글을 조회
+	 * - Category가 Null일 경우 모든 카테고리를 대상으로 조회하고 Null이 아닌 경우 특정 카테고리를
+	 *  게시글을 조회한다.
+	 * 
+	 * @param pageNo 조회할 페이지 번호
+	 * @param boardNo 조회할 게시판의 고유 식별 번호
+	 * @param category 조회할 카테고리
+	 * @param keyword 검색어
+	 * @return
+	 */
+	@LoginRequired
+	@GetMapping(value = "/search/content")
+	public PostPageResponse searchContent(
+			@RequestParam int pageNo,
+			@RequestParam long boardNo,
+			@RequestParam String category,
+			@RequestParam String keyword) {
+		if(StringUtil.isEmpty(category))
+			return postService.searchContent(pageNo, boardNo, keyword);
+		return postService.searchCategoryAndContent(pageNo, boardNo, category,
+				keyword);
+	}
+	
+	/**
+	 * - 특정 게시판에서 게시글의 제목 혹은 내용과 키워드가 부분 일치하는 게시글을 조회
+	 * - Category가 Null일 경우 모든 카테고리를 대상으로 조회하고 Null이 아닌 경우 특정 카테고리를
+	 *  게시글을 조회한다.
+	 * 
+	 * @param pageNo 조회할 페이지 번호
+	 * @param boardNo 조회할 게시판의 고유 식별 번호
+	 * @param category 조회할 카테고리
+	 * @param keyword 검색어
+	 * @return
+	 */
+	@LoginRequired
+	@GetMapping(value = "/search/title_and_content")
+	public PostPageResponse searchByTitleAndContent(
+			@RequestParam int pageNo,
+			@RequestParam long boardNo,
+			@RequestParam String category,
+			@RequestParam String keyword) {
+		if(StringUtil.isEmpty(category))
+			return postService.searchTitleAndContent(pageNo, boardNo, keyword);
+		return postService.searchCategoryAndTitleAndContent(pageNo, boardNo, 
+				category, keyword);
 	}
 }
