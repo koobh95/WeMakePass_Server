@@ -17,6 +17,14 @@ import com.github.koobh95.data.model.entity.mapping.PostMapping;
  */
 public interface PostRepository extends JpaRepository<Post, Long> {
 	/**
+	 * 특정 게시글을 조회
+	 * 
+	 * @param postNo 조회할 게시글의 고유 식별 번호
+	 * @return
+	 */
+	Post findByPostNo(long postNo);
+	
+	/**
 	 * - 특정 게시판의 게시글을 조회
 	 * - 삭제된 게시글은 조회 대상에서 제외
 	 * 

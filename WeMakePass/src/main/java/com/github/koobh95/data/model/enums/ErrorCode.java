@@ -51,9 +51,12 @@ public enum ErrorCode {
 	// 비밀번호 변경 실패 - 변경하려는 비밀번호가 현재 사용 중인 비밀번호와 같음.
 	PASSWORD_CURRENTLY_USE(HttpStatus.BAD_REQUEST, "이미 사용 중인 비밀번호입니다."),
 	// 비밀번호 변경 실패 - 변경하려는 비밀번호가 이전에 사용한 비밀번호가 같음.
-	PASSWORD_PREVIOUSLY_USE(HttpStatus.BAD_REQUEST, 
-			"전에 사용한 비밀번호는 다시 사용할 수 없습니다.");
-		
+	PASSWORD_PREVIOUSLY_USE(HttpStatus.BAD_REQUEST,
+			"전에 사용한 비밀번호는 다시 사용할 수 없습니다."),
+
+	// 특정 게시글을 조회하려 했으나 게시물이 삭제된 상태.
+	POST_LOADING_FAILED_POST_DELETED(HttpStatus.NOT_FOUND, "삭제된 게시글입니다.");
+	
 	private HttpStatus httpStatus; // 클라이언트에게 반환할 상태 코드
 	private String message; // 클라이언트에게 반환할 메시지
 }

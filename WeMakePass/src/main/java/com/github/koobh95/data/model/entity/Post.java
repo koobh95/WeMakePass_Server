@@ -64,6 +64,11 @@ public class Post {
 	@OneToMany(mappedBy="post", fetch = FetchType.EAGER)
 	private List<Reply> replyList = new ArrayList<>();
 	
+	// 조회수를 1 증가
+	public void increaseHit() {
+		hit++;
+	}
+	
 	/**
 	 * DB에 저장할 Entity 객체를 초기화하여 반환한다.
 	 * 

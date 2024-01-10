@@ -12,6 +12,7 @@ import com.github.koobh95.exception.AesEncryptException;
 import com.github.koobh95.exception.JwtReissueException;
 import com.github.koobh95.exception.LoginException;
 import com.github.koobh95.exception.MailServiceException;
+import com.github.koobh95.exception.PostException;
 import com.github.koobh95.exception.SignUpException;
 import com.github.koobh95.exception.UserModifyException;
 
@@ -78,6 +79,13 @@ public class CustomExceptionHandler {
 	@ExceptionHandler(UserModifyException.class)
 	protected ResponseEntity<ErrorResponse> userModifyException(
 			UserModifyException e) {
+		return createErrorResponseEntity(e.getErrorCode());
+	}
+	
+	// 게시글 관련 처리 중 발생하는 예외
+	@ExceptionHandler(PostException.class)
+	protected ResponseEntity<ErrorResponse> postException(
+			PostException e) {
 		return createErrorResponseEntity(e.getErrorCode());
 	}
 	

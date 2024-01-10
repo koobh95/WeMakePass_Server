@@ -4,13 +4,17 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.github.koobh95.data.model.dto.PostDTO;
+import com.github.koobh95.data.model.dto.PostDetailDTO;
 import com.github.koobh95.data.model.dto.request.PostWriteRequest;
 import com.github.koobh95.data.model.dto.response.PostPageResponse;
 import com.github.koobh95.data.model.entity.Post;
 import com.github.koobh95.data.model.entity.mapping.PostMapping;
+import com.github.koobh95.data.model.enums.ErrorCode;
 import com.github.koobh95.data.repository.PostRepository;
+import com.github.koobh95.exception.PostException;
 import com.github.koobh95.service.PostService;
 
 import lombok.RequiredArgsConstructor;
@@ -82,5 +86,31 @@ public class PostServiceImpl implements PostService {
 	@Override
 	public void write(PostWriteRequest postWriteRequest) {
 		postRepository.save(postWriteRequest.toEntity());
+	}
+
+	/**
+	 * - 특정 게시물을 조회했을 경우 클라이언트에 표시할 데이터를 반환한다.
+	 * - 조회하려는 게시물이 삭제된 상태일 가능성이 있으므로 삭제 여부를 확인한다.
+	 * - 게시글을 조회하는 시점에서 조회수를 1 증가시킨 뒤 Entity 객체를 DTO 객체로 변환, 반환한다.
+	 * 
+	 * @param postNo 조회할 게시글의 고유 식별 번호
+	 */
+	@Transactional
+	@Override
+	public PostDetailDTO postDetail(long postNo) {
+		Post entity = postRepository.findByPostNo(postNo);
+		
+		if(entity.getDeleteDate() != null)
+			throw new PostException(ErrorCode.POST_LOADING_FAILED_POST_DELETED,
+					"postNo=" + postNo);
+		
+		entity.increaseHit();
+		return new PostDetailDTO(
+				entity.getCategory(), 
+				entity.getUser().getNickname(),
+				entity.getTitle(),
+				entity.getContent(),
+				entity.getRegDate(),
+				entity.getHit());
 	}
 }

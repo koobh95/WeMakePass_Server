@@ -38,14 +38,6 @@ public class SecurityConfig {
 	
 	private final WmpUserDetailsService wmpUserDetailsService;
 	
-	// 보안을 적용하지 않을 URI
-	private String[] permitUris = {
-			"/api/user/sign_up", // 회원가입
-			"/api/user/login", // 로그인
-			"/api/jwt/reissue", // 토큰 재발급
-			"/api/mail/**", // 메일 전송 관련 모든 API
-			"/api/user/password_reset",}; // 비밀번호 변경 요청
-	
 	/**
 	 * - 스프링 시큐리티 필터 체인 설정
 	 * - 정책, 기본 필터 각각에 대한 사용 유무, 보안을 적용할 리소스, 보안을 적용하지 않을 리소스 등을
@@ -58,6 +50,13 @@ public class SecurityConfig {
 	@Bean
 	public SecurityFilterChain securityFilterChain(HttpSecurity http)
 			throws Exception {
+		String[] permitUris = { // 보안을 적용하지 않을 URI
+				"/api/user/sign_up", // 회원가입
+				"/api/user/login", // 로그인
+				"/api/jwt/reissue", // 토큰 재발급
+				"/api/mail/**", // 메일 전송 관련 모든 API
+				"/api/user/password_reset",}; // 비밀번호 변경 요청
+		
 		http.sessionManagement()
 			.sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
 			.httpBasic().disable() // httpBasic 인증 비활성화

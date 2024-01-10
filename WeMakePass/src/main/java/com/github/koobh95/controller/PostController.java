@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.github.koobh95.annotation.LoginRequired;
+import com.github.koobh95.data.model.dto.PostDetailDTO;
 import com.github.koobh95.data.model.dto.request.PostWriteRequest;
 import com.github.koobh95.data.model.dto.response.PostPageResponse;
 import com.github.koobh95.service.PostService;
@@ -71,5 +72,18 @@ public class PostController {
 			@RequestBody PostWriteRequest postWriteRequest) {
 		postService.write(postWriteRequest);
 		return ResponseEntity.ok("게시글을 저장했습니다.");
+	}
+	
+	/**
+	 * 특정 게시글 조회 
+	 * 
+	 * @param postNo 조회할 게시글의 고유 식별 번호
+	 * @return
+	 */
+	@LoginRequired
+	@GetMapping(value = "/detail")
+	public PostDetailDTO postDetail(
+			@RequestParam long postNo) {
+		return postService.postDetail(postNo);
 	}
 }

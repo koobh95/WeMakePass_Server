@@ -1,5 +1,6 @@
 package com.github.koobh95.service;
 
+import com.github.koobh95.data.model.dto.PostDetailDTO;
 import com.github.koobh95.data.model.dto.request.PostWriteRequest;
 import com.github.koobh95.data.model.dto.response.PostPageResponse;
 /**
@@ -17,4 +18,7 @@ public interface PostService {
 
 	// 새로운 게시글을 작성
 	void write(PostWriteRequest postWriteRequest);
+	
+	// 특정 게시글 조회
+	PostDetailDTO postDetail(long postNo);
 }
