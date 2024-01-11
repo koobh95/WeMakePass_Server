@@ -1,6 +1,7 @@
 package com.github.koobh95.data.model.entity;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -8,7 +9,10 @@ import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import com.github.koobh95.data.model.dto.ReplyDTO;
 
 import lombok.Getter;
 
@@ -36,13 +40,28 @@ public class Reply {
 	@Column(name="delete_date")
 	private LocalDateTime deleteDate; // 댓글이 삭제되었을 경우 댓글 삭제 날짜
 
-	// 댓글이 작성된 게시글에 대한 정보, 사용하지 않으므로 LAZY로 설정
+	// 댓글이 작성된 게시글에 대한 정보
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="post_no", insertable = false, updatable = false)
 	private Post post;
 
-	// 댓글을 작성한 유저의 정보, 닉네임을 즉시 읽어야 하므로 EAGER로 설정
-	@ManyToOne(fetch = FetchType.EAGER)
+	// 댓글을 작성한 유저의 정보
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="writer", insertable = false, updatable = false)
 	private User user;
+
+	// 현재 Entity(댓글)의 하위 댓글 목록
+	@OneToMany(mappedBy = "parentReplyNo", fetch = FetchType.LAZY)
+	private List<Reply> childReplyList;
+	
+	// Entity 객체를 DTO 객체로 변환하여 
+	public static ReplyDTO toDto(Reply e) {
+		return new ReplyDTO(
+				e.parentReplyNo != -1,
+				e.getReplyNo(),
+				e.getWriter(),
+				e.getUser().getNickname(),
+				e.getContent(),
+				e.getRegDate());
+	}
 }

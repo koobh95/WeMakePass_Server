@@ -55,7 +55,11 @@ public enum ErrorCode {
 			"전에 사용한 비밀번호는 다시 사용할 수 없습니다."),
 
 	// 특정 게시글을 조회하려 했으나 게시물이 삭제된 상태.
-	POST_LOADING_FAILED_POST_DELETED(HttpStatus.NOT_FOUND, "삭제된 게시글입니다.");
+	POST_LOADING_FAILED_POST_DELETED(HttpStatus.NOT_FOUND, "삭제된 게시글입니다."),
+	
+	// 댓글을 로딩하려 했으나 게시글이 삭제된 상태.
+	REPLY_LOADING_FAILED_POST_DELETED(HttpStatus.NOT_FOUND, 
+			"해당 게시글은 삭제되었습니다.");
 	
 	private HttpStatus httpStatus; // 클라이언트에게 반환할 상태 코드
 	private String message; // 클라이언트에게 반환할 메시지
