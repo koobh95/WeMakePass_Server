@@ -15,6 +15,9 @@ import com.github.koobh95.data.model.entity.Reply;
  * @since 2024-01-07
  */
 public interface ReplyRepository extends JpaRepository<Reply, Long> {
+	// 기본 키로 특정 댓글을 조회
+	Reply findByReplyNo(long replyNo);
+	
 	/**
 	 * 특정 게시글의 댓글 목록을 조회하되 대댓글이 아닌 댓글을 대상으로 조회.
 	 * 

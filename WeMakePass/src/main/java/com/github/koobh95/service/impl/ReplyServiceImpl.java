@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.github.koobh95.data.model.dto.ReplyDTO;
+import com.github.koobh95.data.model.dto.request.ReplyWriteRequest;
 import com.github.koobh95.data.model.entity.Post;
 import com.github.koobh95.data.model.entity.Reply;
 import com.github.koobh95.data.model.enums.ErrorCode;
@@ -44,6 +45,31 @@ public class ReplyServiceImpl implements ReplyService {
 					ErrorCode.REPLY_LOADING_FAILED_POST_DELETED,
 					"postNo=" + postNo);
 		return convertToReplyDtoList(replyRepository.findByPostNo(postNo));
+	}
+
+	/**
+	 * - 새로운 댓글을 DB에 작성한다.
+	 * - 댓글을 추가하기 전에 댓글을 추가할 수 있는 상황인지 확인한다. 작성하려는 게시글이 삭제되었거나
+	 *  답글을 작성하려는데 상위 댓글이 삭제된 상태라면 예외를 발생시킨다. 
+	 * 
+	 * @param request 작성할 댓글에 대한 데이터를 가진 객체
+	 */
+	@Override
+	public void write(ReplyWriteRequest request) {
+		Post post = postRepository.findByPostNo(request.getPostNo());
+		if(post.getDeleteDate() != null)
+			throw new ReplyException(ErrorCode.REPLY_WRITE_FAILED_POST_DELETED,
+					"postNo=" + request.getPostNo());
+		
+		if(request.getParentReplyNo() != -1) {
+			if(replyRepository.findByReplyNo(request.getParentReplyNo())
+					.getDeleteDate() != null)
+				throw new ReplyException(
+						ErrorCode.REPLY_WRITE_FAILED_PARENT_REPLY_DELETED,
+						"postNo=" + request.getPostNo());
+		}
+		
+		replyRepository.save(ReplyWriteRequest.toEntity(request));
 	}
 
 	/**
