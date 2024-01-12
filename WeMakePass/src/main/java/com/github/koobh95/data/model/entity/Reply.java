@@ -12,6 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -65,6 +66,7 @@ public class Reply {
 	private User user;
 
 	// 현재 Entity(댓글)의 하위 댓글 목록
+	@OrderBy("reply_no ASC")
 	@OneToMany(mappedBy = "parentReplyNo", fetch = FetchType.LAZY)
 	private List<Reply> childReplyList;
 	
