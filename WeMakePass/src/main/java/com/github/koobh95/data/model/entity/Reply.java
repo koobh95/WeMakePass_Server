@@ -78,6 +78,11 @@ public class Reply {
 		regDate = LocalDateTime.now();
 	}
 	
+	// 댓글 삭제 날짜에 현재 날짜를 초기화하여 현재 댓글이 삭제되었음을 표시 
+	public void delete() {
+		deleteDate = LocalDateTime.now();
+	}
+	
 	// Entity 객체를 DTO 객체로 변환하여 반환
 	public static ReplyDTO toDto(Reply e) {
 		return new ReplyDTO(

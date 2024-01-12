@@ -66,7 +66,11 @@ public enum ErrorCode {
 			"해당 게시글은 삭제되었습니다."),
 	// 답글을 작성하려 했으나 상위 댓글이 삭제된 상태
 	REPLY_WRITE_FAILED_PARENT_REPLY_DELETED(HttpStatus.NOT_FOUND, 
-			"댓글이 삭제되었습니다.");
+			"댓글이 삭제되었습니다."),
+	
+	// 답글을 삭제하려 했으나 이미 게시글이 삭제된 상태
+	REPLY_DELETE_FAILED_POST_DELETED(HttpStatus.NOT_FOUND, 
+			"해당 게시글은 삭제되었습니다.");
 	
 	private HttpStatus httpStatus; // 클라이언트에게 반환할 상태 코드
 	private String message; // 클라이언트에게 반환할 메시지

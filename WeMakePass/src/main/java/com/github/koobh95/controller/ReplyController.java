@@ -3,6 +3,7 @@ package com.github.koobh95.controller;
 import java.util.List;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -53,5 +54,18 @@ public class ReplyController {
 			@RequestBody ReplyWriteRequest replyWriteRequest) {
 		replyService.write(replyWriteRequest);
 		return ResponseEntity.ok("성공적으로 댓글을 작성했습니다.") ;
+	}
+	
+	/**
+	 * 댓글을 삭제한다.
+	 * 
+	 * @param replyNo 삭제할 댓글의 고유 식별 번호
+	 * @return
+	 */
+	@LoginRequired
+	@DeleteMapping(value = "delete")
+	public ResponseEntity<String> delete(@RequestParam("replyNo") long replyNo) {
+		replyService.delete(replyNo);
+		return ResponseEntity.ok("성공적으로 댓글을 삭제했습니다.");
 	}
 }

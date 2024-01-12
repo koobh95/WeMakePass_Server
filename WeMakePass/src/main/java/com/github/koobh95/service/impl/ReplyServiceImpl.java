@@ -73,6 +73,24 @@ public class ReplyServiceImpl implements ReplyService {
 	}
 
 	/**
+	 * - 특정 댓글을 삭제한다.
+	 * - 댓글을 삭제하기 전에 댓글을 표시 중인 게시글의 삭제 여부를 확인하여 삭제되었을 경우 예외를 
+	 *  발생시킨다.
+	 * 
+	 * @param replyNo 삭제할 댓글의 고유 식볇 번호
+	 */
+	@Transactional
+	@Override
+	public void delete(long replyNo) {
+		Reply reply = replyRepository.findByReplyNo(replyNo);
+		if(reply.getPost().getDeleteDate() != null)
+			throw new ReplyException(
+					ErrorCode.REPLY_DELETE_FAILED_POST_DELETED,
+					"replyNo=" + replyNo);
+		replyRepository.findByReplyNo(replyNo).delete();
+	}
+
+	/**
 	 * - DB에서 읽은 Entity List를 DTO List로 변환하여 반환한다.
 	 * - 삭제된 댓글은 추가하지 않는다. 단, 삭제되었지만 하위 댓글이 존재하는 경우 하위 댓글을 표시하기
 	 *  위해 객체에 이 댓글은 삭제된 댓글이라는 정보를 추가하고 리스트에 추가한다.
@@ -82,7 +100,6 @@ public class ReplyServiceImpl implements ReplyService {
 	 * @return
 	 */
 	private List<ReplyDTO> convertToReplyDtoList(List<Reply> entityList) {
-		System.out.println("댓글 개수 : " + entityList.size());
 		List<ReplyDTO> dtoList = new ArrayList<>();
 		
 		for(Reply reply : entityList) {

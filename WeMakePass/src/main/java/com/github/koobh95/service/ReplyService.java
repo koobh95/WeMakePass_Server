@@ -16,4 +16,6 @@ public interface ReplyService {
 	List<ReplyDTO> replyList(long postNo);
 	// 새로운 댓글 작성
 	void write(ReplyWriteRequest request);
+	// 특정 댓글 삭제
+	void delete(long replyNo);
 }
