@@ -57,9 +57,16 @@ public class ReplyDTO {
 		this.content = content;
 		this.regDate = regDate;
 	}
-
-	// 자식 댓글이 존재하는데 상위 댓글이 삭제된 경우, 답글을 표시할 때 상위 댓글이 삭제되었음을 표시.
-	public void setDeleted() {
-		deleted = true;
+	
+	/**
+	 *  삭제된 댓글일 경우 삭제되었다는 표시 외에 클라이언트로 넘겨도 유의미한 데이터가 없으므로 삭제되었다는
+	 * 데이터만 저장한 객체를 반환한다.
+	 * 
+	 * @return
+	 */
+	public static ReplyDTO ofDeletedReply() {
+		ReplyDTO repltDto = new ReplyDTO();
+		repltDto.deleted = true;
+		return repltDto;
 	}
 }

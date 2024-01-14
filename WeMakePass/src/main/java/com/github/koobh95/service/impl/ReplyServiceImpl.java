@@ -113,8 +113,9 @@ public class ReplyServiceImpl implements ReplyService {
 			} else { // 하위 댓글이 있음.
 				ReplyDTO dto = Reply.toDto(reply);
 				if(reply.getDeleteDate() != null) // 삭제된 상태
-					dto.setDeleted();
-				dtoList.add(dto);
+					dtoList.add(ReplyDTO.ofDeletedReply());
+				else
+					dtoList.add(dto);
 			}
 			
 			// 하위 댓글(답글) 탐색 및 추가
