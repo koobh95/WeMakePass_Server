@@ -89,6 +89,20 @@ public class UserServiceImpl implements UserService{
 	}
 
 	/**
+	 * - 클라이언트의 로그아웃 요청을 처리한다. DB에 저장된 토큰 정보를 삭제한다.
+	 * - 클라이언트는 로그아웃 버튼을 누르는 시점에서 네트워크 연결 여부, 서버 상태와 상관없이 클라이언트가
+	 *  가진 인증 정보 및 사용자 정보를 모두 삭제하기 때문에 이 작업이 반드시 성공해야하는 것은 아니다.
+	 * 
+	 * @param userId 로그아웃을 요청한 사용자의 ID
+	 */
+	@Override
+	public void logout(String userId) {
+		Optional<UserToken> userToken = userTokenRepository.findById(userId);
+		if(userToken.isPresent())
+			userTokenRepository.deleteById(userId);
+	}
+
+	/**
 	 * - 로그인에 성공했을 때 클라이언트 내부에 저장할 사용자 정보를 반환한다.
 	 * - 로그인에 성공한 다음 즉시 호출된다는 특성상 유저에 대한 별도의 검사(인증, 탈퇴 등)는 수행하지
 	 *  않는다.
