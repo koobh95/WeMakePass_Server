@@ -3,8 +3,8 @@ package com.github.koobh95.controller;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -73,7 +73,7 @@ public class UserController {
 	 * @param signUpRequest 회원가입에 필요한 필수 정보를 갖는 DTO 클래스.
 	 * @return
 	 */
-	@PutMapping(value="/sign_up")
+	@PostMapping(value="/sign_up")
 	public ResponseEntity<String> signUp(@RequestBody SignUpRequest signUpRequest) {
 		userService.signUp(signUpRequest);
 		return ResponseEntity.ok("회원가입이 완료되었습니다.");
@@ -85,7 +85,7 @@ public class UserController {
 	 * @param request 새로운 비밀번호와 변경 대상 아이디
 	 * @return
 	 */
-	@PutMapping(value="/password_reset")
+	@PatchMapping(value="/password_reset")
 	public ResponseEntity<String> passwordReset(
 			@RequestBody PasswordResetRequest request) {
 		userService.passwordReset(request);
@@ -100,7 +100,7 @@ public class UserController {
 	 * @return
 	 */
 	@LoginRequired
-	@GetMapping(value="/nickname_change")
+	@PatchMapping(value="/nickname_change")
 	public ResponseEntity<String> nicknameChange(Authentication authentication, 
 			String newNickname) {
 		userService.nicknameChange(authentication.getName(), newNickname);

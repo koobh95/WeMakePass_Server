@@ -53,7 +53,6 @@ public class ExamController {
 	@LoginRequired
 	@GetMapping(value = "/doc/answer")
 	public List<DocAnswerDTO> docAnswerList(@RequestParam long examId){
-		System.out.println("[Request] ExamController/docAnswerList");
 		return examDocService.getAnswerList(examId);
 	}
 
