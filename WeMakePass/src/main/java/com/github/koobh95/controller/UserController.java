@@ -43,19 +43,6 @@ public class UserController {
 	}
 	
 	/**
-	 * 로그아웃 요청 처리.
-	 * 
-	 * @param authentication 인증 필터에서 생성된 인증 객체, 유저의 ID를 얻기 위해 사용
-	 * @return
-	 */
-	@LoginRequired
-	@GetMapping(value="/logout")
-	public ResponseEntity<String> login(Authentication authentication) {
-		userService.logout(authentication.getName());
-		return ResponseEntity.ok("로그아웃되었습니다.");
-	}
-	
-	/**
 	 * 로그인 후 클라이언트에 저장할 사용자 정보 조회
 	 * 
 	 * @param authentication 인증 단계에서 저장한 인증 객체.

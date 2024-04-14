@@ -15,8 +15,6 @@ import com.github.koobh95.data.model.dto.request.SignUpRequest;
 public interface UserService {
 	// 로그인 요청 처리
 	JwtDTO login(LoginRequest userRequest);
-	// 로그아웃 요청 처리
-	void logout(String userId);
 	// 사용자가 클라이언트에 저장할 데이터를 반환
 	UserInfoDTO userInfo(String userId);
 	// 회원가입 요청 처리
