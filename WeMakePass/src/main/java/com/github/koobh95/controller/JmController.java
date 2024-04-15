@@ -44,7 +44,7 @@ public class JmController {
 	 * @return 시험 데이터가 있는 종목 리스트
 	 */
 	@LoginRequired
-	@GetMapping(value = "/search/with-exam")
+	@GetMapping(value = "/with-exam")
 	public List<JmDTO> searchForJmWithExamInfo(@RequestParam String keyword){
 		return jmService.searchByJmNameWithExam(keyword);
 	}
