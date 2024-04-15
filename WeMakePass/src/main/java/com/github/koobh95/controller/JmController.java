@@ -32,7 +32,7 @@ public class JmController {
 	 * @return JmName과 keyword가 부분 일치하는 데이터 리스트.
 	 */
 	@LoginRequired
-	@GetMapping(value = "/search")
+	@GetMapping
 	public List<JmDTO> search(@RequestParam String keyword) {
 		return jmService.searchByJmName(keyword);
 	}
@@ -44,7 +44,7 @@ public class JmController {
 	 * @return 시험 데이터가 있는 종목 리스트
 	 */
 	@LoginRequired
-	@GetMapping(value = "/search/with_exam_info")
+	@GetMapping(value = "/search/with-exam")
 	public List<JmDTO> searchForJmWithExamInfo(@RequestParam String keyword){
 		return jmService.searchByJmNameWithExam(keyword);
 	}

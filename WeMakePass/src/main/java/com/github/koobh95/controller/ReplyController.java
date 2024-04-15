@@ -37,7 +37,7 @@ public class ReplyController {
 	 * @return
 	 */
 	@LoginRequired
-	@GetMapping(value = "list")
+	@GetMapping
 	public List<ReplyDTO> replyList(@RequestParam long postNo) {
 		return replyService.replyList(postNo);
 	}
@@ -49,7 +49,7 @@ public class ReplyController {
 	 * @return
 	 */
 	@LoginRequired
-	@PostMapping(value = "write")
+	@PostMapping
 	public ResponseEntity<String> write(
 			@RequestBody ReplyWriteRequest replyWriteRequest) {
 		replyService.write(replyWriteRequest);
@@ -63,7 +63,7 @@ public class ReplyController {
 	 * @return
 	 */
 	@LoginRequired
-	@DeleteMapping(value = "delete")
+	@DeleteMapping
 	public ResponseEntity<String> delete(@RequestParam("replyNo") long replyNo) {
 		replyService.delete(replyNo);
 		return ResponseEntity.ok("성공적으로 댓글을 삭제했습니다.");

@@ -32,7 +32,7 @@ public class BoardController {
 	 * @return
 	 */
 	@LoginRequired
-	@GetMapping("/search")
+	@GetMapping
 	public List<Board> search(
 			@RequestParam String keyword) {
 		return boardService.searchByBoardName(keyword);

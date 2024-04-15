@@ -27,7 +27,7 @@ public class MailController {
 	 * @param userId 인증 메일을 발송할 유저의 ID
 	 * @return
 	 */
-	@GetMapping("/account_cert")
+	@GetMapping("/account-cert")
 	public ResponseEntity<String> accountCert(String userId) {
 		mailService.sendAccountCertMail(userId);
 		return ResponseEntity.ok("메일을 성공적으로 전송했습니다.");
@@ -52,7 +52,7 @@ public class MailController {
 	 * @param email 사용자가 입력한 이메일 주소
 	 * @return
 	 */
-	@GetMapping("/forget_id")
+	@GetMapping("/forget-id")
 	public ResponseEntity<String> forgetId(String email) {
 		mailService.sendFindIdMail(email);
 		return ResponseEntity.ok("메일을 성공적으로 전송했습니다.");
@@ -64,7 +64,7 @@ public class MailController {
 	 * @param userId 사용자가 입력한 아이디
 	 * @return
 	 */
-	@GetMapping("/forget_password")
+	@GetMapping("/forget-password")
 	public ResponseEntity<String> forgetPassword(String userId) {
 		mailService.sendFindPasswordMail(userId);
 		return ResponseEntity.ok("메일을 성공적으로 전송했습니다.");

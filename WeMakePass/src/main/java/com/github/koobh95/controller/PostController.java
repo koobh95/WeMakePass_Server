@@ -68,7 +68,7 @@ public class PostController {
 	 * @return
 	 */
 	@LoginRequired
-	@PostMapping(value = "/write")
+	@PostMapping
 	public ResponseEntity<String> write(
 			@RequestBody PostWriteRequest postWriteRequest) {
 		postService.write(postWriteRequest);
@@ -148,7 +148,7 @@ public class PostController {
 	 * @return
 	 */
 	@LoginRequired
-	@GetMapping(value = "/search/title_and_content")
+	@GetMapping(value = "/search/title-and-content")
 	public PostPageResponse searchByTitleAndContent(
 			@RequestParam int pageNo,
 			@RequestParam long boardNo,

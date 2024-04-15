@@ -62,7 +62,7 @@ public class UserController {
 	 * @return
 	 */
 	@LoginRequired
-	@GetMapping(value="/info")
+	@GetMapping
 	public UserInfoDTO userInfo(Authentication authentication){
 		return userService.userInfo(authentication.getName());
 	}
@@ -73,7 +73,7 @@ public class UserController {
 	 * @param signUpRequest 회원가입에 필요한 필수 정보를 갖는 DTO 클래스.
 	 * @return
 	 */
-	@PostMapping(value="/sign_up")
+	@PostMapping(value="/sign-up")
 	public ResponseEntity<String> signUp(@RequestBody SignUpRequest signUpRequest) {
 		userService.signUp(signUpRequest);
 		return ResponseEntity.ok("회원가입이 완료되었습니다.");
@@ -85,7 +85,7 @@ public class UserController {
 	 * @param request 새로운 비밀번호와 변경 대상 아이디
 	 * @return
 	 */
-	@PatchMapping(value="/password_reset")
+	@PatchMapping(value="/password-reset")
 	public ResponseEntity<String> passwordReset(
 			@RequestBody PasswordResetRequest request) {
 		userService.passwordReset(request);
@@ -100,7 +100,7 @@ public class UserController {
 	 * @return
 	 */
 	@LoginRequired
-	@PatchMapping(value="/nickname_change")
+	@PatchMapping(value="/nickname-change")
 	public ResponseEntity<String> nicknameChange(Authentication authentication, 
 			String newNickname) {
 		userService.nicknameChange(authentication.getName(), newNickname);
@@ -115,7 +115,7 @@ public class UserController {
 	 * @return
 	 */
 	@LoginRequired
-	@PostMapping(value="password_auth")
+	@PostMapping(value="password-auth")
 	public ResponseEntity<String> currentPasswordAuth(
 			Authentication authentication,
 			@RequestBody String encryptedPassword) {

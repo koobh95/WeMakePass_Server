@@ -22,31 +22,12 @@ import lombok.RequiredArgsConstructor;
  * @since 2024-01-03
  */
 @RestController
-@RequestMapping("api/exam_info")
+@RequestMapping("api/exam-info")
 @RequiredArgsConstructor
 public class ExamInfoController {
-	private final ExamService examInfoService;
+	private final ExamService examService;
 	private final ExamDocService examDocService;
-	
-	/**
-	 * 파라미터로 받은 종목 코드, 시행 년도, 시행 회차, 시험 형식과 일치하는 시험 데이터를 조회  
-	 * 
-	 * @param jmCode 종목 식별 번호
-	 * @param implYear 시행 년도
-	 * @param implSeq 시행 회차
-	 * @param examFormat 시험 형식
-	 */
-	@LoginRequired
-	@GetMapping
-	public ExamInfo examInfo(
-			@RequestParam String jmCode, 
-			@RequestParam int implYear, 
-			@RequestParam int implSeq,
-			@RequestParam String examFormat) {
-		return examInfoService
-				.getExamInfo(jmCode, implYear, implSeq, examFormat);
-	}
-	
+		
 	/**
 	 * 특정 종목의 시험을 조회한다.
 	 * 
@@ -54,9 +35,9 @@ public class ExamInfoController {
 	 * @return
 	 */
 	@LoginRequired
-	@GetMapping(value = "/list")
+	@GetMapping(value = "/jm")
 	public List<ExamInfo> examInfoList(@RequestParam String jmCode) {
-		return examInfoService.getExamInfoList(jmCode);
+		return examService.getExamInfoList(jmCode);
 	}
 
 	/**
@@ -65,7 +46,7 @@ public class ExamInfoController {
 	 * @return
 	 */
 	@LoginRequired
-	@GetMapping(value = "/subject_list")
+	@GetMapping(value = "/subject")
 	public Set<String> docSubjectList(@RequestParam long examId) {
 		return examDocService.getSubjectList(examId);
 	}
