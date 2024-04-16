@@ -14,7 +14,7 @@ import lombok.Getter;
 public class ReplyWriteRequest {
     private long postNo; // 댓글을 작성할 게시글의 고유 식별 번호
     private long parentReplyNo; // 답글일 경우 상위 댓글의 고유 식별 번호
-    private String writerId; // 댓글 작성자의 ID
+    private String writer; // 댓글 작성자의 ID
     private String content; // 댓글 내용
     
     /**
@@ -24,7 +24,7 @@ public class ReplyWriteRequest {
     public static Reply toEntity(ReplyWriteRequest request) {
     	return new Reply(request.parentReplyNo,
     			request.postNo,
-    			request.writerId,
+    			request.writer,
     			request.content);
     }
 }
