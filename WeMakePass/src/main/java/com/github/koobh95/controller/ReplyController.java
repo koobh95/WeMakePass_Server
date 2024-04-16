@@ -25,7 +25,7 @@ import lombok.RequiredArgsConstructor;
  * @since 2024-01-11
  */
 @RestController
-@RequestMapping("/api/reply/")
+@RequestMapping("/api/reply")
 @RequiredArgsConstructor
 public class ReplyController {
 	private final ReplyService replyService;
