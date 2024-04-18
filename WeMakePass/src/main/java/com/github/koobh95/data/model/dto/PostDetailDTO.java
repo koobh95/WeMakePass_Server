@@ -19,7 +19,7 @@ import lombok.Getter;
 @AllArgsConstructor
 public class PostDetailDTO {
     private String category; // 게시글의 카테고리
-    private String writerNickname; // 작성자의 닉네임
+    private String nickname; // 작성자의 닉네임
     private String title; // 게시글 제목
     private String content; // 게시글 내용
 	@JsonFormat(shape = JsonFormat.Shape.STRING, 
