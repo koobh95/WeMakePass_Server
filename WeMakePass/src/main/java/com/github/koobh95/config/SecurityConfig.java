@@ -51,11 +51,11 @@ public class SecurityConfig {
 	public SecurityFilterChain securityFilterChain(HttpSecurity http)
 			throws Exception {
 		String[] permitUris = { // 보안을 적용하지 않을 URI
-				"/api/user/sign_up", // 회원가입
+				"/api/user/sign-up", // 회원가입
 				"/api/user/login", // 로그인
 				"/api/jwt/reissue", // 토큰 재발급
 				"/api/mail/**", // 메일 전송 관련 모든 API
-				"/api/user/password_reset",}; // 비밀번호 변경 요청
+				"/api/user/password-reset",}; // 비밀번호 변경 요청
 		
 		http.sessionManagement()
 			.sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
