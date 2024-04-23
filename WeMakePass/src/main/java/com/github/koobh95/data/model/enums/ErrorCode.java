@@ -49,7 +49,7 @@ public enum ErrorCode {
 	EMAIL_NOT_FOUND(HttpStatus.NOT_FOUND, "존재하지 않는 이메일입니다."),
 	
 	// 비밀번호 변경 실패 - 변경하려는 비밀번호가 현재 사용 중인 비밀번호와 같음.
-	PASSWORD_CURRENTLY_USE(HttpStatus.BAD_REQUEST, "이미 사용 중인 비밀번호입니다."),
+	PASSWORD_CURRENTLY_USE(HttpStatus.BAD_REQUEST, "현재 사용 중인 비밀번호와 같습니다."),
 	// 비밀번호 변경 실패 - 변경하려는 비밀번호가 이전에 사용한 비밀번호가 같음.
 	PASSWORD_PREVIOUSLY_USE(HttpStatus.BAD_REQUEST,
 			"전에 사용한 비밀번호는 다시 사용할 수 없습니다."),
